@@ -1,10 +1,12 @@
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
+import { ZodValidationPipe } from '@/infra/pipes/zod-validation-pipe'
 import {
   BadRequestException,
   Body,
   Controller,
   HttpCode,
   Post,
+  UsePipes,
 } from '@nestjs/common'
 import { hash } from 'bcryptjs'
 import { z } from 'zod'
@@ -23,6 +25,7 @@ export class CreateAccountController {
 
   @Post()
   @HttpCode(201)
+  @UsePipes(new ZodValidationPipe(createAccountBodySchema))
   async handler(@Body() body: CreateAccountBodySchema) {
     const { name, email, password } = body
 
