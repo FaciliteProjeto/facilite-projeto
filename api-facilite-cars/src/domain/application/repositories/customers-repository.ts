@@ -1,4 +1,4 @@
-import type { Customers } from '../entities/customers'
+import type { Customers } from '@/domain/enterprise/entities/customers'
 
 export abstract class CustomersRepository {
   abstract create(customers: Customers): Promise<void>

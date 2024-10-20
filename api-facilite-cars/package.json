@@ -15,6 +15,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.0.3",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.3",
     "@nestjs/core": "^10.0.0",
@@ -43,8 +44,8 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.3",
-    "vitest": "^2.1.3",
+    "unplugin-swc": "^1.5.1",
     "vite-tsconfig-paths": "^5.0.1",
-    "unplugin-swc": "^1.5.1"
+    "vitest": "^2.1.3"
   }
 }

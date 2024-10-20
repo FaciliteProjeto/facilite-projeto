@@ -16,8 +16,7 @@
       ]
     },
     "types": [
-      "vitest/globals",
-      "multer"
+      "vitest/globals"
     ],
     "incremental": true,
     "skipLibCheck": true,
