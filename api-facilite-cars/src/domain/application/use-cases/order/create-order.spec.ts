@@ -16,6 +16,8 @@ describe('Create order use case', () => {
     const order = await sut.execute({
       customerId: '2',
       userId: '1',
+      carId: '3',
+      price: 10000,
     })
 
     expect(order.isRight()).toBeTruthy()
