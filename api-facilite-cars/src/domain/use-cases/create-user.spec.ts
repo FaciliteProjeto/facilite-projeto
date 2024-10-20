@@ -1,12 +1,22 @@
-import { expect, test } from 'vitest'
+import { describe } from 'node:test'
+import type { User } from '../entities/user'
+import type { UserRepository } from '../repositories/user-repository'
 import { CreateUserUseCase } from './create-user'
 
-test('create an user', () => {
-  const createUser = new CreateUserUseCase()
+const fakerUserRepository: UserRepository = {
+  create: async (user: User) => {
+    return
+  },
+}
 
-  const user = createUser.execute({
-    name: 'John Doe',
+describe('Create user use case', () => {
+  it('should be able to create an user', async () => {
+    const createUser = new CreateUserUseCase(fakerUserRepository)
+
+    const user = await createUser.execute({
+      name: 'John Doe',
+    })
+
+    expect(user.isRight()).toBeTruthy()
   })
-
-  expect(user.name).toEqual('John Doe')
 })

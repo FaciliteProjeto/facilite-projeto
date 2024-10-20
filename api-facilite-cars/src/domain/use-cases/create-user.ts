@@ -1,13 +1,23 @@
+import { type Either, right } from '@/core/either'
 import { User } from '../entities/user'
+import type { UserRepository } from '../repositories/user-repository'
 
-interface CreateUserProps {
+interface CreateUserRequest {
   name: string
 }
 
-export class CreateUserUseCase {
-  execute({ name }: CreateUserProps) {
-    const user = new User(name)
+type CreateUserResponse = Either<null, null>
 
-    return user
+export class CreateUserUseCase {
+  constructor(private userRepository: UserRepository) {}
+
+  async execute({ name }: CreateUserRequest): Promise<CreateUserResponse> {
+    const user = User.create({
+      name,
+    })
+
+    await this.userRepository.create(user)
+
+    return right(null)
   }
 }
