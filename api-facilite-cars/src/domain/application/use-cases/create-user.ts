@@ -1,5 +1,5 @@
 import { type Either, right } from '@/core/either'
-import { User } from '../entities/user'
+import { User } from '@/domain/enterprise/entities/user'
 import type { UserRepository } from '../repositories/user-repository'
 
 interface CreateUserRequest {

@@ -1,6 +1,6 @@
 import { type Either, right } from '@/core/either'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Order } from '../entities/order'
+import { Order } from '@/domain/enterprise/entities/order'
 import type { OrderRepository } from '../repositories/order-repository'
 
 interface CreateOrderUseCaseRequest {
