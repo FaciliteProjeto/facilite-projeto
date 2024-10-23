@@ -17,7 +17,7 @@ export class GetUserInfoController {
     })
 
     if (response.isLeft()) {
-      return new BadRequestException(response.value.message)
+      throw new BadRequestException(response.value.message)
     }
 
     const userPresenter = UserPresenter.toHTTP(response.value.user)

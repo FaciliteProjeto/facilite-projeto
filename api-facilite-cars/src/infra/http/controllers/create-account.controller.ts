@@ -1,6 +1,13 @@
 import { CreateUserUseCase } from '@/domain/application/use-cases/user/create-user'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
-import { Body, Controller, HttpCode, Post, UsePipes } from '@nestjs/common'
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  UsePipes,
+} from '@nestjs/common'
 import { z } from 'zod'
 
 const createAccountBodySchema = z.object({
@@ -23,12 +30,16 @@ export class CreateAccountController {
   async handler(@Body() body: CreateAccountBodySchema) {
     const { name, email, password, cpf, phone } = body
 
-    await this.createUser.execute({
+    const response = await this.createUser.execute({
       name,
       email,
       password,
       cpf,
       phone,
     })
+
+    if (response.isLeft()) {
+      throw new BadRequestException(response.value)
+    }
   }
 }
