@@ -32,3 +32,18 @@ Content-Type: application/json
 GET  {{baseUrl}}/me
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+###
+
+# @name update user 
+PATCH   {{baseUrl}}/update/user
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "John Doe 2",
+  "email": "johns@email.com",
+  "cpf": "23234532245",
+  "phone": "43232321"
+}
+

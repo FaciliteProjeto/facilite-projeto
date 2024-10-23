@@ -7,6 +7,8 @@ import { DatabaseModule } from '../database/prisma/database.module'
 import { AuthenticateController } from './controllers/authenticate.controller'
 import { CreateAccountController } from './controllers/create-account.controller'
 import { GetUserInfoController } from './controllers/get-user-info.controller'
+import { UpdateUserController } from './controllers/update-user.controller'
+import { UpdateUserUseCase } from '@/domain/application/use-cases/user/update-user'
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -14,12 +16,14 @@ import { GetUserInfoController } from './controllers/get-user-info.controller'
     CreateAccountController,
     AuthenticateController,
     GetUserInfoController,
+    UpdateUserController,
   ],
 
   providers: [
     CreateUserUseCase,
     AuthenticateUserUseCase,
     FindUniqueUserUseCase,
+    UpdateUserUseCase,
   ],
 })
 export class HttpModule {}
