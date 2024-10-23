@@ -47,3 +47,10 @@ Authorization: Bearer {{authToken}}
   "phone": "43232321"
 }
 
+###
+
+# @name delete user 
+PUT    {{baseUrl}}/delete/user/2ac0fddb-90f8-48d7-a3ea-859b382be0d8
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+

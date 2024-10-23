@@ -9,6 +9,8 @@ import { CreateAccountController } from './controllers/create-account.controller
 import { GetUserInfoController } from './controllers/get-user-info.controller'
 import { UpdateUserController } from './controllers/update-user.controller'
 import { UpdateUserUseCase } from '@/domain/application/use-cases/user/update-user'
+import { DeleteUserController } from './controllers/delete-user.controller'
+import { DeleteUserUseCase } from '@/domain/application/use-cases/user/delete-user'
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -17,6 +19,7 @@ import { UpdateUserUseCase } from '@/domain/application/use-cases/user/update-us
     AuthenticateController,
     GetUserInfoController,
     UpdateUserController,
+    DeleteUserController,
   ],
 
   providers: [
@@ -24,6 +27,7 @@ import { UpdateUserUseCase } from '@/domain/application/use-cases/user/update-us
     AuthenticateUserUseCase,
     FindUniqueUserUseCase,
     UpdateUserUseCase,
+    DeleteUserUseCase,
   ],
 })
 export class HttpModule {}
