@@ -45,8 +45,6 @@ export class PrismaUserRepository implements UserRepository {
       },
     })
 
-    console.log(response)
-
     if (!response) {
       return null
     }
