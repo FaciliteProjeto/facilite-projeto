@@ -1,15 +1,29 @@
+import { FindUniqueUserUseCase } from '@/domain/application/use-cases/user/find-unique-user'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
-import type { UserPayload } from '@/infra/auth/jwt-strategy'
-import { Controller, Get, UseGuards } from '@nestjs/common'
+import { UserPayload } from '@/infra/auth/jwt-strategy'
+import { BadRequestException, Controller, Get, UseGuards } from '@nestjs/common'
+import { UserPresenter } from '../presenters/user-presenter'
 
 @Controller('/me')
 @UseGuards(JwtAuthGuard)
 export class GetUserInfoController {
-  constructor() {}
+  constructor(private findUniqueUserUseCase: FindUniqueUserUseCase) {}
 
   @Get()
   async handler(@CurrentUser() user: UserPayload) {
-    return user
+    const response = await this.findUniqueUserUseCase.execute({
+      id: user.sub,
+    })
+
+    if (response.isLeft()) {
+      return new BadRequestException(response.value.message)
+    }
+
+    const userPresenter = UserPresenter.toHTTP(response.value.user)
+
+    return {
+      user: userPresenter,
+    }
   }
 }

@@ -43,4 +43,14 @@ export class InMemoryUserRepository implements UserRepository {
 
     this.items.splice(userIndex, 1)
   }
+
+  async findByEmail(email: string): Promise<User | null> {
+    const user = await this.items.find(item => item.email === email)
+
+    if (!user) {
+      return null
+    }
+
+    return user
+  }
 }
