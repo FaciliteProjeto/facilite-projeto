@@ -1,5 +1,5 @@
-import type { Cars } from '@/domain/entities/cars'
-import type { CarsRepository } from '@/domain/repositories/cars-repository'
+import type { CarsRepository } from '@/domain/application/repositories/cars-repository'
+import type { Cars } from '@/domain/enterprise/entities/cars'
 
 export class InMemoryCarsRepository implements CarsRepository {
   public items: Cars[] = []

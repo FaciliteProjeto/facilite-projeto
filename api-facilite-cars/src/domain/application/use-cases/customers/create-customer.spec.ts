@@ -17,7 +17,7 @@ describe('Create customer use case', () => {
       addressId: '1',
       homePhone: '432432423',
       income: 20000,
-      mobilePhon: '43243243',
+      mobilePhone: '43243243',
     })
 
     expect(result.isRight()).toBeTruthy()

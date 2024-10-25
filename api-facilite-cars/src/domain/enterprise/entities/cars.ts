@@ -1,11 +1,9 @@
-import { randomUUID } from 'node:crypto'
-import type { Slug } from './value-objects/slug'
 import { Entity } from '@/core/entities/entity'
 import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import type { Slug } from './value-objects/slug'
 
 interface CarsProps {
-  name: string
-  slug: Slug
+  slug?: Slug
   chassisNumber: string
   licensePlate: string
   brand: string
@@ -13,18 +11,10 @@ interface CarsProps {
   manufacturingYear: number
   modelYear: number
   color: string
-  value: string
+  value: number
 }
 
 export class Cars extends Entity<CarsProps> {
-  get name(): string {
-    return this.props.name
-  }
-
-  get slug(): Slug {
-    return this.props.slug
-  }
-
   get chassisNumber(): string {
     return this.props.chassisNumber
   }
@@ -53,13 +43,13 @@ export class Cars extends Entity<CarsProps> {
     return this.props.color
   }
 
-  get value(): string {
+  get value(): number {
     return this.props.value
   }
 
   static create(props: CarsProps, id?: UniqueEntityID) {
-    const car = Cars.create(props, id)
+    const car = new Cars(props, id)
 
-    return id
+    return car
   }
 }
