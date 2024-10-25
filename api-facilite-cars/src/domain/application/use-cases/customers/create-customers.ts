@@ -1,10 +1,14 @@
-import { right, type Either } from "@/core/either"
-import { Customers } from "@/domain/enterprise/entities/customers"
-import type { CustomersRepository } from "../../repositories/customers-repository"
+import { right, type Either } from '@/core/either'
+import { Customers } from '@/domain/enterprise/entities/customers'
+import type { CustomersRepository } from '../../repositories/customers-repository'
 
 interface CreateCustomerUseCaseRequest {
   name: string
   cpf: string
+  addressId: string
+  homePhone: string
+  mobilePhon: string
+  income: number
 }
 
 type CreateCustomerUseCaseResponse = Either<null, null>
@@ -12,10 +16,21 @@ type CreateCustomerUseCaseResponse = Either<null, null>
 export class CreateCustomerUseCase {
   constructor(private customerRepository: CustomersRepository) {}
 
-  async execute({ name, cpf}: CreateCustomerUseCaseRequest): Promise<CreateCustomerUseCaseResponse> {
+  async execute({
+    name,
+    cpf,
+    addressId,
+    homePhone,
+    income,
+    mobilePhon,
+  }: CreateCustomerUseCaseRequest): Promise<CreateCustomerUseCaseResponse> {
     const customer = Customers.create({
+      name,
       cpf,
-      name
+      addressId,
+      homePhone,
+      income,
+      mobilePhon,
     })
 
     await this.customerRepository.create(customer)

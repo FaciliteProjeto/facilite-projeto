@@ -18,7 +18,7 @@ export class UpdateCustomerUseCase {
   async execute({
     id,
     cpf,
-    name
+    name,
   }: UpdateCustomerRequest): Promise<UpdateCustomerResponse> {
     const customerExists = await this.customerRepository.findUnique(id)
 
@@ -28,8 +28,12 @@ export class UpdateCustomerUseCase {
 
     const customer = Customers.create(
       {
-       cpf,
-       name
+        cpf,
+        name,
+        homePhone: customerExists.homePhone,
+        addressId: customerExists.addressId,
+        income: customerExists.income,
+        mobilePhone: customerExists.mobilePhone,
       },
       new UniqueEntityID(id)
     )

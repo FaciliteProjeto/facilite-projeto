@@ -2,6 +2,8 @@ import { Entity } from '@/core/entities/entity'
 import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import type { Optional } from '@/core/types/optional'
 
+type OrderType = 'PURCHASE' | 'SALE'
+
 interface OrderProps {
   userId: UniqueEntityID
   customerId: UniqueEntityID
@@ -9,6 +11,7 @@ interface OrderProps {
   price: number
   createdAt: Date
   updatedAt?: Date
+  orderType: OrderType
 }
 
 export class Order extends Entity<OrderProps> {
@@ -26,6 +29,10 @@ export class Order extends Entity<OrderProps> {
 
   get carId() {
     return this.props.carId
+  }
+
+  get orderType() {
+    return this.props.orderType
   }
 
   static create(props: Optional<OrderProps, 'createdAt'>, id?: UniqueEntityID) {
