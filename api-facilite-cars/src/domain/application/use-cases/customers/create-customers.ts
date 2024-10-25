@@ -7,7 +7,7 @@ interface CreateCustomerUseCaseRequest {
   cpf: string
   addressId: string
   homePhone: string
-  mobilePhon: string
+  mobilePhone: string
   income: number
 }
 
@@ -22,7 +22,7 @@ export class CreateCustomerUseCase {
     addressId,
     homePhone,
     income,
-    mobilePhon,
+    mobilePhone,
   }: CreateCustomerUseCaseRequest): Promise<CreateCustomerUseCaseResponse> {
     const customer = Customers.create({
       name,
@@ -30,7 +30,7 @@ export class CreateCustomerUseCase {
       addressId,
       homePhone,
       income,
-      mobilePhon,
+      mobilePhone,
     })
 
     await this.customerRepository.create(customer)
