@@ -1,8 +1,9 @@
 import { type Either, left, right } from '@/core/either'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { User } from '@/domain/enterprise/entities/user'
-import type { UserRepository } from '../../repositories/user-repository'
+import { UserRepository } from '../../repositories/user-repository'
 import { WrongHandleError } from '../errors/wrong-handle-error'
+import { Injectable } from '@nestjs/common'
 
 interface UpdateUserRequest {
   id: string
@@ -14,6 +15,7 @@ interface UpdateUserRequest {
 
 type UpdateUserResponse = Either<WrongHandleError, null>
 
+@Injectable()
 export class UpdateUserUseCase {
   constructor(private userRepository: UserRepository) {}
 
