@@ -14,10 +14,12 @@ describe('Create customer use case', () => {
     const result = await sut.execute({
       cpf: '34323432432',
       name: 'John Doe',
-      addressId: '1',
       homePhone: '432432423',
       income: 20000,
       mobilePhone: '43243243',
+      city: 'Manaus',
+      state: 'Amazonas',
+      streetAddress: 'Rua teste',
     })
 
     expect(result.isRight()).toBeTruthy()

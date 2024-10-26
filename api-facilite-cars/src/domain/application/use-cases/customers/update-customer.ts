@@ -31,9 +31,11 @@ export class UpdateCustomerUseCase {
         cpf,
         name,
         homePhone: customerExists.homePhone,
-        addressId: customerExists.addressId,
         income: customerExists.income,
         mobilePhone: customerExists.mobilePhone,
+        city: customerExists.city,
+        state: customerExists.state,
+        streetAddress: customerExists.streetAddress,
       },
       new UniqueEntityID(id)
     )
