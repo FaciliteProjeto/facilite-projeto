@@ -52,9 +52,9 @@ model Customer {
   streetAddress String
   state         String
   city          String
-  homePhone     String?   @map("home_phone")
-  mobilePhone   String?   @map("mobile_phone")
-  income        Float?
+  homePhone     String    @map("home_phone")
+  mobilePhone   String    @map("mobile_phone")
+  income        Float
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime? @updatedAt @map("updated_at")
 
