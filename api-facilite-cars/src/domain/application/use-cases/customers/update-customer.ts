@@ -1,7 +1,8 @@
 import { type Either, left, right } from '@/core/either'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Customers } from '@/domain/enterprise/entities/customers'
-import type { CustomersRepository } from '../../repositories/customers-repository'
+import { Injectable } from '@nestjs/common'
+import { CustomersRepository } from '../../repositories/customers-repository'
 import { WrongHandleError } from '../errors/wrong-handle-error'
 
 interface UpdateCustomerRequest {
@@ -12,6 +13,7 @@ interface UpdateCustomerRequest {
 
 type UpdateCustomerResponse = Either<WrongHandleError, null>
 
+@Injectable()
 export class UpdateCustomerUseCase {
   constructor(private customerRepository: CustomersRepository) {}
 
@@ -31,9 +33,11 @@ export class UpdateCustomerUseCase {
         cpf,
         name,
         homePhone: customerExists.homePhone,
-        addressId: customerExists.addressId,
         income: customerExists.income,
         mobilePhone: customerExists.mobilePhone,
+        city: customerExists.city,
+        state: customerExists.state,
+        streetAddress: customerExists.streetAddress,
       },
       new UniqueEntityID(id)
     )

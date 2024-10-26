@@ -46,30 +46,21 @@ model Order {
 }
 
 model Customer {
-  id          String    @id @default(uuid())
-  cpf         String    @unique
-  name        String
-  addressId   String    @map("address_id")
-  homePhone   String?   @map("home_phone")
-  mobilePhone String?   @map("mobile_phone")
-  income      Float?
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime? @updatedAt @map("updated_at")
+  id            String    @id @default(uuid())
+  cpf           String    @unique
+  name          String
+  streetAddress String
+  state         String
+  city          String
+  homePhone     String    @map("home_phone")
+  mobilePhone   String    @map("mobile_phone")
+  income        Float
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime? @updatedAt @map("updated_at")
 
-  address Address @relation(fields: [addressId], references: [id])
-  orders  Order[]
+  orders Order[]
 
   @@map("customers")
-}
-
-model Address {
-  id           String     @id @default(uuid())
-  neighborhood String
-  city         String
-  state        String
-  customers    Customer[]
-
-  @@map("addresses")
 }
 
 model Car {
