@@ -35,7 +35,7 @@ Authorization: Bearer {{authToken}}
 
 ###
 
-# @name update user 
+# @name update_user 
 PATCH   {{baseUrl}}/update/user
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
@@ -49,7 +49,7 @@ Authorization: Bearer {{authToken}}
 
 ###
 
-# @name delete user 
+# @name delete_user 
 PUT    {{baseUrl}}/delete/user/2ac0fddb-90f8-48d7-a3ea-859b382be0d8
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
@@ -73,3 +73,52 @@ Authorization: Bearer {{authToken}}
 }
 
 ###
+
+# @name create_customer
+POST {{baseUrl}}/customers
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "Jane Doe",
+  "cpf": "12345678901",
+  "homePhone": "123456789",
+  "streetAddress": "123 Main St",
+  "state": "SP",
+  "city": "São Paulo",
+  "mobilePhone": "987654321",
+  "income": 5000
+}
+
+###
+
+# @name find_all_customers
+GET {{baseUrl}}/customers 
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name find_unique_customers
+GET {{baseUrl}}/customers/41f8b36e-5b97-4423-bd63-da3f98d75455
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name delete_customers
+PATCH  {{baseUrl}}/customers/41f8b36e-5b97-4423-bd63-da3f98d75455
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name update_customer
+PUT  {{baseUrl}}/customer/d6a17b3e-d572-4fa9-aa33-9a9263f5a892
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "Jane Doe",
+  "cpf": "12345678901"
+}
