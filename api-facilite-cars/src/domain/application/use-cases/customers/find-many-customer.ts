@@ -1,19 +1,24 @@
-import { right, type Either } from '@/core/either'
-import type { Customers } from '@/domain/enterprise/entities/customers'
-import type { CustomersRepository } from '../../repositories/customers-repository'
+import { type Either, right } from '@/core/either'
+import { Customers } from '@/domain/enterprise/entities/customers'
+import { Injectable } from '@nestjs/common'
+import { CustomersRepository } from '../../repositories/customers-repository'
 
-type FindUniqueCustomerUseCaseResponse = Either<null, {
-  customer: Customers[]
-}>
+type FindManyCustomerUseCaseResponse = Either<
+  null,
+  {
+    customer: Customers[]
+  }
+>
 
-export class FindUniqueCustomerUseCase {
+@Injectable()
+export class FindManyCustomerUseCase {
   constructor(private customerRepository: CustomersRepository) {}
 
-  async execute(): Promise<FindUniqueCustomerUseCaseResponse> {
+  async execute(): Promise<FindManyCustomerUseCaseResponse> {
     const customer = await this.customerRepository.findMany()
 
     return right({
-      customer
+      customer,
     })
   }
 }

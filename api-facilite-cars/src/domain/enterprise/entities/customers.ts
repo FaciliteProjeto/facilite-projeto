@@ -5,9 +5,11 @@ import type { Optional } from '@/core/types/optional'
 interface CustomersProps {
   name: string
   cpf: string
-  addressId: string
   homePhone: string
   mobilePhone: string
+  streetAddress: string
+  state: string
+  city: string
   income: number
   createdAt: Date
   updatedAt?: Date | null
@@ -22,16 +24,24 @@ export class Customers extends Entity<CustomersProps> {
     return this.props.cpf
   }
 
-  get addressId(): string {
-    return this.props.addressId
-  }
-
   get homePhone(): string {
     return this.props.homePhone
   }
 
   get mobilePhone(): string {
     return this.props.mobilePhone
+  }
+
+  get streetAddress(): string {
+    return this.props.streetAddress
+  }
+
+  get state(): string {
+    return this.props.state
+  }
+
+  get city(): string {
+    return this.props.city
   }
 
   get income(): number {

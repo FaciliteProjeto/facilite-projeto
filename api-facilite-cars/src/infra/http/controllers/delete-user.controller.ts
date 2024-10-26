@@ -7,7 +7,6 @@ import {
   Param,
   Put,
   UseGuards,
-  UsePipes,
 } from '@nestjs/common'
 
 @Controller('delete/user/:userId')
