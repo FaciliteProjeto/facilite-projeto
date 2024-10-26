@@ -10,7 +10,9 @@ Content-Type: application/json
 {
   "name": "John Doe",
   "email": "john@email.com",
-  "password": "123456"
+  "password": "123456",
+  "cpf": "23234532245",
+  "phone": "43232321"
 }
 
 ###
@@ -30,3 +32,44 @@ Content-Type: application/json
 GET  {{baseUrl}}/me
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+###
+
+# @name update user 
+PATCH   {{baseUrl}}/update/user
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "John Doe 2",
+  "email": "johns@email.com",
+  "cpf": "23234532245",
+  "phone": "43232321"
+}
+
+###
+
+# @name delete user 
+PUT    {{baseUrl}}/delete/user/2ac0fddb-90f8-48d7-a3ea-859b382be0d8
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name create_car
+POST {{baseUrl}}/cars
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "chassisNumber": "1234567890",
+  "licensePlate": "ABC-1234",
+  "brand": "Volkswagen",
+  "model": "Fusca",
+  "manufacturingYear": 1970,
+  "modelYear": 1970,
+  "color": "Amarelo",
+  "value": 30000
+}
+
+###

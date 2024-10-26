@@ -30,6 +30,7 @@ export class UpdateOrderUseCase {
         carId: orderExists.carId,
         customerId: orderExists.customerId,
         userId: orderExists.userId,
+        orderType: orderExists.orderType,
       },
       new UniqueEntityID(id)
     )

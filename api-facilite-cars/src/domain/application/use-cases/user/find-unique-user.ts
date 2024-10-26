@@ -1,6 +1,7 @@
 import { type Either, left, right } from '@/core/either'
-import type { User } from '@/domain/enterprise/entities/user'
-import type { UserRepository } from '../../repositories/user-repository'
+import { User } from '@/domain/enterprise/entities/user'
+import { Injectable } from '@nestjs/common'
+import { UserRepository } from '../../repositories/user-repository'
 import { WrongHandleError } from '../errors/wrong-handle-error'
 
 interface FindUniqueUserUseCaseRequest {
@@ -14,6 +15,7 @@ type FindUniqueUserUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class FindUniqueUserUseCase {
   constructor(private userRepository: UserRepository) {}
 

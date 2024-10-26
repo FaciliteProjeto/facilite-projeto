@@ -1,7 +1,8 @@
 import { type Either, right } from '@/core/either'
 import { User } from '@/domain/enterprise/entities/user'
-import type { HashGenerator } from '../../cryptography/hash-generator'
-import type { UserRepository } from '../../repositories/user-repository'
+import { Injectable } from '@nestjs/common'
+import { HashGenerator } from '../../cryptography/hash-generator'
+import { UserRepository } from '../../repositories/user-repository'
 
 interface CreateUserRequest {
   name: string
@@ -13,6 +14,7 @@ interface CreateUserRequest {
 
 type CreateUserResponse = Either<null, null>
 
+@Injectable()
 export class CreateUserUseCase {
   constructor(
     private userRepository: UserRepository,

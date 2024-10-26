@@ -18,6 +18,7 @@ describe('Create order use case', () => {
       userId: '1',
       carId: '3',
       price: 10000,
+      orderType: 'PURCHASE',
     })
 
     expect(order.isRight()).toBeTruthy()

@@ -7,12 +7,83 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id String @id @default(uuid())
-  name String
-  email String @unique
-  password String
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  phone     String
+  cpf       String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  orders    Order[]
 
   @@map("users")
+}
+
+enum OrderType {
+  PURCHASE
+  SALE
+}
+
+model Order {
+  id        String   @id @default(uuid())
+  price     Float
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  customerId String @map("customer_id")
+  userId     String @map("user_id")
+  carId      String
+
+  orderType OrderType @map("order_type")
+
+  user     User     @relation(fields: [userId], references: [id])
+  customer Customer @relation(fields: [customerId], references: [id])
+  car      Car      @relation(fields: [carId], references: [id])
+
+  @@map("orders")
+}
+
+model Customer {
+  id          String    @id @default(uuid())
+  cpf         String    @unique
+  name        String
+  addressId   String    @map("address_id")
+  homePhone   String?   @map("home_phone")
+  mobilePhone String?   @map("mobile_phone")
+  income      Float?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @updatedAt @map("updated_at")
+
+  address Address @relation(fields: [addressId], references: [id])
+  orders  Order[]
+
+  @@map("customers")
+}
+
+model Address {
+  id           String     @id @default(uuid())
+  neighborhood String
+  city         String
+  state        String
+  customers    Customer[]
+
+  @@map("addresses")
+}
+
+model Car {
+  id                String @id @default(uuid())
+  chassisNumber     String @unique @map("chassis_number")
+  licensePlate      String @unique @map("license_plate")
+  brand             String
+  model             String
+  manufacturingYear Int    @map("manu_facturing_year")
+  modelYear         Int    @map("model_year")
+  color             String
+  value             Float
+
+  order Order[]
+
+  @@map("cars")
 }

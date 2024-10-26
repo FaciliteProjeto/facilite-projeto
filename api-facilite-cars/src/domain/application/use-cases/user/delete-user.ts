@@ -1,5 +1,6 @@
 import { type Either, right } from '@/core/either'
-import type { UserRepository } from '../../repositories/user-repository'
+import { UserRepository } from '../../repositories/user-repository'
+import { Injectable } from '@nestjs/common'
 
 interface DeleteUserRequest {
   id: string
@@ -7,6 +8,7 @@ interface DeleteUserRequest {
 
 type DeleteUserResponse = Either<null, null>
 
+@Injectable()
 export class DeleteUserUseCase {
   constructor(private userRepository: UserRepository) {}
 
