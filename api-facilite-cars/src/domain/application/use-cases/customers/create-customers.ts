@@ -1,6 +1,7 @@
 import { type Either, right } from '@/core/either'
 import { Customers } from '@/domain/enterprise/entities/customers'
-import type { CustomersRepository } from '../../repositories/customers-repository'
+import { Injectable } from '@nestjs/common'
+import { CustomersRepository } from '../../repositories/customers-repository'
 
 interface CreateCustomerUseCaseRequest {
   name: string
@@ -15,6 +16,7 @@ interface CreateCustomerUseCaseRequest {
 
 type CreateCustomerUseCaseResponse = Either<null, null>
 
+@Injectable()
 export class CreateCustomerUseCase {
   constructor(private customerRepository: CustomersRepository) {}
 

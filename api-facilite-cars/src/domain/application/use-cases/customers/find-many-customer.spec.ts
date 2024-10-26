@@ -2,15 +2,15 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { describe } from 'node:test'
 import { makeCustomer } from 'test/factories/make-customer'
 import { InMemoryCustomerRepository } from 'test/repositories/in-memory-customer-repository'
-import { FindUniqueCustomerUseCase } from './find-many-customer'
+import { FindManyCustomerUseCase } from './find-many-customer'
 
 let inMemoryCustomerRepository: InMemoryCustomerRepository
-let sut: FindUniqueCustomerUseCase
+let sut: FindManyCustomerUseCase
 
 describe('Find many customers use case', () => {
   beforeEach(() => {
     inMemoryCustomerRepository = new InMemoryCustomerRepository()
-    sut = new FindUniqueCustomerUseCase(inMemoryCustomerRepository)
+    sut = new FindManyCustomerUseCase(inMemoryCustomerRepository)
   })
 
   it('should be able to fetch all customers', async () => {
