@@ -9,6 +9,7 @@ export function makerOrder(override: Partial<Order> = {}, id?: UniqueEntityID) {
       customerId: new UniqueEntityID(faker.string.uuid().toString()),
       userId: new UniqueEntityID(faker.string.uuid().toString()),
       price: Number(faker.commerce.price()),
+      orderType: 'PURCHASE',
       ...override,
     },
     id
