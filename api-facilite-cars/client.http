@@ -122,3 +122,19 @@ Authorization: Bearer {{authToken}}
   "name": "Jane Doe",
   "cpf": "12345678901"
 }
+
+
+###
+
+# @name find_many_cars
+Get  {{baseUrl}}/cars
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+
+###
+
+# @name find_unique_car
+Get  {{baseUrl}}/cars/33ab0010-69f5-400a-870c-4405db86b520
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
