@@ -138,3 +138,19 @@ Authorization: Bearer {{authToken}}
 Get  {{baseUrl}}/cars/33ab0010-69f5-400a-870c-4405db86b520
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+###
+
+# @name create_order
+Post  {{baseUrl}}/orders
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "userId": "ae743bda-d4bb-431e-bb12-36d41e501e4f",
+  "carId": "5338aab7-c6fb-4069-b3d3-0529cf709e96",
+  "price": 10000,
+  "orderType": "PURCHASE",
+  "installmentsCount": 5,
+  "customerId": "4d6d363e-0a21-4aaf-89f9-e740bdb1f51d"
+}

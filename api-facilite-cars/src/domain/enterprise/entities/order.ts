@@ -35,6 +35,14 @@ export class Order extends Entity<OrderProps> {
     return this.props.orderType
   }
 
+  get createdAt() {
+    return this.props.createdAt
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt
+  }
+
   static create(props: Optional<OrderProps, 'createdAt'>, id?: UniqueEntityID) {
     const order = new Order(
       {

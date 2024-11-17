@@ -6,6 +6,7 @@ import { DeleteCustomerUseCase } from '@/domain/application/use-cases/customers/
 import { FindManyCustomerUseCase } from '@/domain/application/use-cases/customers/find-many-customer'
 import { FindUniqueCustomerUseCase } from '@/domain/application/use-cases/customers/find-unique-customer'
 import { UpdateCustomerUseCase } from '@/domain/application/use-cases/customers/update-customer'
+import { CreateOrderUseCase } from '@/domain/application/use-cases/order/create-order'
 import { AuthenticateUserUseCase } from '@/domain/application/use-cases/user/authenticate-user'
 import { CreateUserUseCase } from '@/domain/application/use-cases/user/create-user'
 import { DeleteUserUseCase } from '@/domain/application/use-cases/user/delete-user'
@@ -18,6 +19,7 @@ import { AuthenticateController } from './controllers/authenticate.controller'
 import { CreateAccountController } from './controllers/create-account.controller'
 import { CreateCarController } from './controllers/create-car.controller'
 import { CreateCustomerController } from './controllers/create-customer.controller'
+import { CreateOrderController } from './controllers/create-order-controller'
 import { DeleteCustomerController } from './controllers/delete-customer.controller'
 import { DeleteUserController } from './controllers/delete-user.controller'
 import { FindManyCarController } from './controllers/find-many-car.controller'
@@ -47,6 +49,8 @@ import { UpdateUserController } from './controllers/update-user.controller'
 
     FindManyCarController,
     FindUniqueCarController,
+
+    CreateOrderController,
   ],
 
   providers: [
@@ -66,6 +70,8 @@ import { UpdateUserController } from './controllers/update-user.controller'
 
     FindManyCarUseCase,
     FindUniqueCarUseCase,
+
+    CreateOrderUseCase,
   ],
 })
 export class HttpModule {}

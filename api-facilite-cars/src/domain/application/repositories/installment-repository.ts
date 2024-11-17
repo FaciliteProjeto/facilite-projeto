@@ -1,0 +1,7 @@
+import { Installment } from '@/domain/enterprise/entities/installment'
+
+export abstract class InstallmentRepository {
+  abstract createMany(installments: Installment[]): Promise<void>
+  abstract findManyByOrderId(orderId: string): Promise<Installment[]>
+  abstract deleteByOrderId(orderId: string): Promise<void>
+}

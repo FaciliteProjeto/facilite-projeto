@@ -38,9 +38,10 @@ model Order {
 
   orderType OrderType @map("order_type")
 
-  user     User     @relation(fields: [userId], references: [id])
-  customer Customer @relation(fields: [customerId], references: [id])
-  car      Car      @relation(fields: [carId], references: [id])
+  user        User          @relation(fields: [userId], references: [id])
+  customer    Customer      @relation(fields: [customerId], references: [id])
+  car         Car           @relation(fields: [carId], references: [id])
+  Installment Installment[]
 
   @@map("orders")
 }
@@ -77,4 +78,18 @@ model Car {
   order Order[]
 
   @@map("cars")
+}
+
+model Installment {
+  id        String   @id @default(uuid())
+  amount    Float
+  dueDate   DateTime @map("due_date")
+  isPaid    Boolean  @default(false) @map("is_paid")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  orderId String @map("order_id")
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  @@map("installments")
 }
