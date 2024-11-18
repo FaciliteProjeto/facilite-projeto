@@ -43,4 +43,16 @@ export class InMemoryCustomerRepository implements CustomersRepository {
 
     this.items.splice(customersIndex, 1)
   }
+
+  async findByUserId(userId: string): Promise<Customers | null> {
+    const customer = await this.items.find(
+      item => item.userId.toString() === userId
+    )
+
+    if (!customer) {
+      return null
+    }
+
+    return customer
+  }
 }

@@ -1,8 +1,25 @@
 import { PrismaClient } from '@prisma/client'
+import { hash } from 'bcryptjs'
 
 const prisma = new PrismaClient()
 
 async function main() {
+  await prisma.installment.deleteMany()
+  await prisma.order.deleteMany()
+  await prisma.car.deleteMany()
+  await prisma.customer.deleteMany()
+  await prisma.user.deleteMany()
+
+  await prisma.user.create({
+    data: {
+      cpf: '33453345678',
+      email: 'john@email.com',
+      name: 'John Doe',
+      password: await hash('123456', 6),
+      phone: '92992384733',
+    },
+  })
+
   const superCars = [
     {
       chassisNumber: 'SF90FERRAR123456',
@@ -106,13 +123,12 @@ async function main() {
     },
   ]
 
-  // Geração de 20 registros com chassisNumber únicos
   const replicatedCars = Array.from({ length: 20 }, (_, index) => {
-    const baseCar = superCars[index % superCars.length] // Reutiliza os carros do array base
+    const baseCar = superCars[index % superCars.length]
     return {
       ...baseCar,
-      chassisNumber: `${baseCar.chassisNumber}-${index + 1}`, // Adiciona um sufixo único
-      licensePlate: `LUX-${(index + 1000).toString().padStart(4, '0')}`, // Gera placas únicas
+      chassisNumber: `${baseCar.chassisNumber}-${index + 1}`,
+      licensePlate: `LUX-${(index + 1000).toString().padStart(4, '0')}`,
     }
   })
 

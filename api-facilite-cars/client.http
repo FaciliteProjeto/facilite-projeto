@@ -87,7 +87,8 @@ Authorization: Bearer {{authToken}}
   "state": "SP",
   "city": "São Paulo",
   "mobilePhone": "987654321",
-  "income": 5000
+  "income": 5000,
+  "email": "jane@customer.com"
 }
 
 ###
@@ -154,3 +155,18 @@ Authorization: Bearer {{authToken}}
   "installmentsCount": 5,
   "customerId": "4d6d363e-0a21-4aaf-89f9-e740bdb1f51d"
 }
+
+
+###
+
+# @name get_installments_by_orderId
+Get {{baseUrl}}/installments/ea299c81-21fc-48fb-8ef1-419f7b0565b9
+Content-Type: application/json
+Authorization:  Bearer {{authToken}}
+
+###
+
+# @name find_customer_by_user_id
+Get {{baseUrl}}/customers/71c1dea8-5bb3-4a05-b7de-f474c2baad78/user
+Content-Type: application/json
+Authorization:  Bearer {{authToken}}

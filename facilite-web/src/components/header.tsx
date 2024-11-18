@@ -1,13 +1,16 @@
+import { auth } from '@/auth/auth'
 import { ArrowBigDown, Bell, Search } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Input } from './ui/input'
 
-export function Header() {
+export async function Header() {
+  const user = await auth()
+
+  console.log(user)
+
   return (
     <div className="bg-yellow-400 w-full p-2 items-center justify-between flex flex-row">
-      <h2 className="font-bold text-black ">
-        Seja bem vindo Marlison Bentes Mourão
-      </h2>
+      <h2 className="font-bold text-black ">Seja bem vindo {user?.name}</h2>
 
       <div>
         <div className="flex gap-2 items-center justify-center bg-white rounded-2xl">

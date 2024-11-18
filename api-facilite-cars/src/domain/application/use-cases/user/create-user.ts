@@ -10,6 +10,7 @@ interface CreateUserRequest {
   email: string
   phone: string
   password: string
+  role: 'SELLER' | 'CUSTOMER' | 'BILLING' | 'ADMIN'
 }
 
 type CreateUserResponse = Either<null, null>
@@ -27,6 +28,7 @@ export class CreateUserUseCase {
     email,
     phone,
     password,
+    role,
   }: CreateUserRequest): Promise<CreateUserResponse> {
     const hashPassword = await this.hashGenerator.hash(password)
 
@@ -36,6 +38,7 @@ export class CreateUserUseCase {
       email,
       password: hashPassword,
       phone,
+      role,
     })
 
     await this.userRepository.create(user)

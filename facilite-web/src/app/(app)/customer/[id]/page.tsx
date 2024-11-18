@@ -23,10 +23,8 @@ export default function CustomerPayment() {
 
   return (
     <div className="p-6 flex flex-col gap-6">
-      {/* Título */}
       <h2 className="text-2xl font-medium">Fluxo de Parcelas</h2>
 
-      {/* Container principal */}
       <div className="flex justify-between items-start gap-6">
         {/* Tabela */}
         <div className="flex-1">

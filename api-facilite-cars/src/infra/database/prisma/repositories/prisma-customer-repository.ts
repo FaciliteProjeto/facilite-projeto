@@ -38,6 +38,20 @@ export class PrismaCustomerRepository implements CustomersRepository {
     return customer
   }
 
+  async findByUserId(userId: string): Promise<Customers | null> {
+    const response = await this.prisma.customer.findFirst({
+      where: { userId },
+    })
+
+    if (!response) {
+      return null
+    }
+
+    const customer = PrismaCustomerMapper.toDomain(response)
+
+    return customer
+  }
+
   async update(customer: Customers): Promise<void> {
     const data = await PrismaCustomerMapper.toPrisma(customer)
 

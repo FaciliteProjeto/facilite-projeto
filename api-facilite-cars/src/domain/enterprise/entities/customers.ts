@@ -12,6 +12,7 @@ interface CustomersProps {
   city: string
   income: number
   createdAt: Date
+  userId: UniqueEntityID
   updatedAt?: Date | null
 }
 
@@ -46,6 +47,10 @@ export class Customers extends Entity<CustomersProps> {
 
   get income(): number {
     return this.props.income
+  }
+
+  get userId(): UniqueEntityID {
+    return this.props.userId
   }
 
   get createdAt(): Date {

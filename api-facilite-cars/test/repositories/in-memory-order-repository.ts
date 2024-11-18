@@ -43,4 +43,10 @@ export class InMemoryOrderRepository implements OrderRepository {
 
     this.items.splice(orderIndex, 1)
   }
+
+  async findManyByCostumerId(customerId: string): Promise<Order[]> {
+    const orders = await this.findManyByCostumerId(customerId)
+
+    return orders
+  }
 }

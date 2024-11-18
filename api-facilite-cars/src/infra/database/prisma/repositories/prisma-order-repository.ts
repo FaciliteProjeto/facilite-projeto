@@ -24,6 +24,18 @@ export class PrismaOrderRepository implements OrderRepository {
     return orders
   }
 
+  async findManyByCostumerId(customerId: string): Promise<Order[]> {
+    const response = await this.prisma.order.findMany({
+      where: {
+        customerId: customerId,
+      },
+    })
+
+    const order = response.map(PrismaOrderMapper.toDomain)
+
+    return order
+  }
+
   async findUnique(id: string): Promise<Order | null> {
     const response = await this.prisma.order.findUnique({
       where: {

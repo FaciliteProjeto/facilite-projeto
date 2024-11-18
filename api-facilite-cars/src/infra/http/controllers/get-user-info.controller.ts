@@ -5,7 +5,7 @@ import { UserPayload } from '@/infra/auth/jwt-strategy'
 import { BadRequestException, Controller, Get, UseGuards } from '@nestjs/common'
 import { UserPresenter } from '../presenters/user-presenter'
 
-@Controller('/me')
+@Controller('me')
 @UseGuards(JwtAuthGuard)
 export class GetUserInfoController {
   constructor(private findUniqueUserUseCase: FindUniqueUserUseCase) {}

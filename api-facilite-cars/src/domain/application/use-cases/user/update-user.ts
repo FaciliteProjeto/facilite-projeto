@@ -1,9 +1,9 @@
 import { type Either, left, right } from '@/core/either'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { User } from '@/domain/enterprise/entities/user'
+import { Injectable } from '@nestjs/common'
 import { UserRepository } from '../../repositories/user-repository'
 import { WrongHandleError } from '../errors/wrong-handle-error'
-import { Injectable } from '@nestjs/common'
 
 interface UpdateUserRequest {
   id: string
@@ -39,6 +39,7 @@ export class UpdateUserUseCase {
         email,
         password: userExists?.password,
         phone,
+        role: userExists.role,
       },
       new UniqueEntityID(id)
     )

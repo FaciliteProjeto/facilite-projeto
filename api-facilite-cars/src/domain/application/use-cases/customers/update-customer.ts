@@ -38,6 +38,7 @@ export class UpdateCustomerUseCase {
         city: customerExists.city,
         state: customerExists.state,
         streetAddress: customerExists.streetAddress,
+        userId: customerExists.userId,
       },
       new UniqueEntityID(id)
     )
