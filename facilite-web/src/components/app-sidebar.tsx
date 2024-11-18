@@ -22,7 +22,7 @@ const items = [
   },
   {
     title: 'Pagamentos',
-    url: '/customer/:id',
+    url: '/customer',
   },
 ]
 

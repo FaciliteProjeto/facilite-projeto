@@ -1,5 +1,4 @@
-'use client'
-
+import { getInfoCustomers } from '@/auth/auth'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -16,10 +15,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { useParams } from 'next/navigation'
 
-export default function CustomerPayment() {
-  const { id } = useParams<{ id: string }>()
+export default async function CustomerPayment() {
+  const customer = await getInfoCustomers()
 
   return (
     <div className="p-6 flex flex-col gap-6">
