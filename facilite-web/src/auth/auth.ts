@@ -1,4 +1,5 @@
 import { api } from '@/http/api-client'
+import { findManyOrderByCustomerId } from '@/http/find-many-order-by-customer-id'
 import { getInfoCustomer } from '@/http/get-info-customer'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -52,10 +53,16 @@ export async function getInfoCustomers() {
   } catch (err) {}
 }
 
-export async function getInstallmentByCustomerId() {
+export async function getOrderByCustomerId() {
   const customer = await getInfoCustomers()
 
+  if (!customer?.id) {
+    return
+  }
+
   try {
-    return customer
+    const order = await findManyOrderByCustomerId({ customerId: customer.id })
+
+    return order
   } catch (err) {}
 }

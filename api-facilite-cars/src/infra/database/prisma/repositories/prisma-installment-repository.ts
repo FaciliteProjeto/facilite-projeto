@@ -29,4 +29,12 @@ export class PrismaInstallmentRepository implements InstallmentRepository {
       where: { orderId },
     })
   }
+
+  async findManyByCustomerId(orderId: string): Promise<Installment[]> {
+    const response = await this.prisma.installment.findMany({
+      where: { orderId },
+    })
+
+    return response.map(PrismaInstallmentMapper.toDomain)
+  }
 }

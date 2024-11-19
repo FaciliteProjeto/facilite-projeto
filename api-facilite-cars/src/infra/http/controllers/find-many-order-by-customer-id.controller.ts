@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common'
 import { OrderPresenter } from '../presenters/order-presenter'
 
-@Controller('orders/:customerId')
+@Controller('orders/:customerId/customer')
 @UseGuards(JwtAuthGuard)
 export class FindManyOrderByCostumerIdController {
   constructor(
@@ -28,10 +28,10 @@ export class FindManyOrderByCostumerIdController {
       throw new BadRequestException(response.value)
     }
 
-    const customer = response.value.order.map(OrderPresenter.toHTTP)
+    const orders = response.value.order.map(OrderPresenter.toHTTP)
 
     return {
-      customer,
+      orders,
     }
   }
 }

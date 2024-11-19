@@ -1,5 +1,6 @@
 import { type Either, right } from '@/core/either'
 import { Order } from '@/domain/enterprise/entities/order'
+import { Injectable } from '@nestjs/common'
 import { OrderRepository } from '../../repositories/order-repository'
 
 interface FindManyOrderByCostumerIdUseCaseRequest {
@@ -13,6 +14,7 @@ type FindManyOrderByCostumerIdUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class FindManyOrderByCostumerIdUseCase {
   constructor(private orderRepository: OrderRepository) {}
 

@@ -6,8 +6,6 @@ import { Input } from './ui/input'
 export async function Header() {
   const user = await auth()
 
-  console.log(user)
-
   return (
     <div className="bg-yellow-400 w-full p-2 items-center justify-between flex flex-row">
       <h2 className="font-bold text-black ">Seja bem vindo {user?.name}</h2>

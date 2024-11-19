@@ -1,4 +1,4 @@
-import { getInfoCustomers } from '@/auth/auth'
+import { getOrderByCustomerId } from '@/auth/auth'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -17,17 +17,20 @@ import {
 } from '@/components/ui/table'
 
 export default async function CustomerPayment() {
-  const customer = await getInfoCustomers()
+  const orders = await getOrderByCustomerId()
 
   return (
     <div className="p-6 flex flex-col gap-6">
       <h2 className="text-2xl font-medium">Fluxo de Parcelas</h2>
 
       <div className="flex justify-between items-start gap-6">
-        {/* Tabela */}
         <div className="flex-1">
           <div className="flex gap-6 mb-4">
-            <span className="font-bold underline">Contrato 001122</span>
+            {orders?.map(order => (
+              <span className="font-bold underline" key={order.id}>
+                Contrato ${order.id}
+              </span>
+            ))}
             <span>Contrato 002233</span>
           </div>
 

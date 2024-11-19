@@ -148,12 +148,12 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "userId": "ae743bda-d4bb-431e-bb12-36d41e501e4f",
-  "carId": "5338aab7-c6fb-4069-b3d3-0529cf709e96",
+  "userId": "86de2663-5c5b-4960-96c6-c7d9a111af88",
+  "carId": "42c299a8-9e68-4504-8d60-4eff70c38615",
   "price": 10000,
   "orderType": "PURCHASE",
   "installmentsCount": 5,
-  "customerId": "4d6d363e-0a21-4aaf-89f9-e740bdb1f51d"
+  "customerId": "4a1cb598-c7d5-4225-a6b0-f70cefced0e6"
 }
 
 
@@ -170,3 +170,13 @@ Authorization:  Bearer {{authToken}}
 Get {{baseUrl}}/customers/71c1dea8-5bb3-4a05-b7de-f474c2baad78/user
 Content-Type: application/json
 Authorization:  Bearer {{authToken}}
+
+###
+
+# @name find_orders_by_customer_id
+Get {{baseUrl}}/orders/4a1cb598-c7d5-4225-a6b0-f70cefced0e6/customer
+Content-Type: application/json
+Authorization:  Bearer {{authToken}}
+
+
+
