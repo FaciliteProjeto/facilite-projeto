@@ -1,10 +1,10 @@
-import { auth } from '@/auth/auth'
-import { ArrowBigDown, Bell, Search } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
-import { Input } from './ui/input'
+import { auth } from "@/auth/auth";
+import { ArrowBigDown, Bell, Search } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Input } from "./ui/input";
 
 export async function Header() {
-  const user = await auth()
+  const user = await auth();
 
   return (
     <div className="bg-yellow-400 w-full p-2 items-center justify-between flex flex-row">
@@ -29,5 +29,5 @@ export async function Header() {
         <ArrowBigDown size={25} />
       </div>
     </div>
-  )
+  );
 }
