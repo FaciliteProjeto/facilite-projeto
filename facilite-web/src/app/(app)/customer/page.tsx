@@ -1,6 +1,6 @@
 "use client";
+import { useEffect, useState } from "react";
 import { getOrderByCustomerId } from "@/auth/auth";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,23 +17,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-// export default async function CustomerPayment() {
-// } from "@/components/ui/table";
 import { useParams } from "next/navigation";
 
-export default async function CustomerPayment() {
-  const orders = await getOrderByCustomerId();
+export default function CustomerPayment() {
+  const [orders, setOrders] = useState([]);
+
   const { id } = useParams<{ id: string }>();
 
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const ordersData = await getOrderByCustomerId();
+      setOrders(ordersData as any);
+    };
+    fetchOrders();
+  }, []);
+
   return (
-    <div className="p-6 flex flex-col gap-6">
+    <div className="p-6 flex flex-col h-full gap-6">
       <h2 className="text-2xl font-medium">Fluxo de Parcelas</h2>
 
       <div className="flex justify-between items-start gap-6">
-        <div className="flex-1">
-          <div className="flex gap-6 mb-4">
-            {orders?.map((order) => (
+        <div className="flex-1 flex-col">
+          <div className="flex gap-6 mb-4 flex-col">
+            {orders?.map((order: any) => (
               <span className="font-bold underline" key={order.id}>
                 Contrato ${order.id}
               </span>
@@ -53,7 +59,7 @@ export default async function CustomerPayment() {
                   <img
                     src="../../../—Pngtree—online payment cashback credit card_5593051.jpg"
                     alt="Fundo"
-                    className="w-full h-64 object-cover opacity-20" /* Use opacity para criar o efeito de transparência */
+                    className="w-full h-64 object-cover opacity-20"
                   />
                 </div>
 
@@ -101,7 +107,6 @@ export default async function CustomerPayment() {
                   <TableHead className="px-4 py-2 text-left border border-gray-300">
                     Status
                   </TableHead>
-                  {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
                   <TableHead className="px-4 py-2 border border-gray-300">
                     Ação
                   </TableHead>

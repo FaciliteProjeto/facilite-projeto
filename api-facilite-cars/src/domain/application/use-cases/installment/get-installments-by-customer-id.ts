@@ -1,19 +1,19 @@
-import { type Either, left, right } from '@/core/either'
-import { InstallmentRepository } from '@/domain/application/repositories/installment-repository'
-import type { Installment } from '@/domain/enterprise/entities/installment'
-import { Injectable } from '@nestjs/common'
-import { WrongHandleError } from '../errors/wrong-handle-error'
+import { type Either, left, right } from '@/core/either';
+import { InstallmentRepository } from '@/domain/application/repositories/installment-repository';
+import type { Installment } from '@/domain/enterprise/entities/Installment';
+import { Injectable } from '@nestjs/common';
+import { WrongHandleError } from '../errors/wrong-handle-error';
 
 interface GetInstallmentsByCustomerIdRequest {
-  customerId: string
+  customerId: string;
 }
 
 type GetInstallmentsByCustomerIdResponse = Either<
   WrongHandleError,
   {
-    installments: Installment[]
+    installments: Installment[];
   }
->
+>;
 
 @Injectable()
 export class GetInstallmentsByCustomerIdUseCase {
@@ -22,15 +22,16 @@ export class GetInstallmentsByCustomerIdUseCase {
   async execute({
     customerId,
   }: GetInstallmentsByCustomerIdRequest): Promise<GetInstallmentsByCustomerIdResponse> {
-    const installments =
-      await this.installmentRepository.findManyByCustomerId(customerId)
+    const installments = await this.installmentRepository.findManyByCustomerId(
+      customerId,
+    );
 
     if (!installments) {
-      return left(new WrongHandleError('Installment not found.'))
+      return left(new WrongHandleError('Installment not found.'));
     }
 
     return right({
       installments,
-    })
+    });
   }
 }

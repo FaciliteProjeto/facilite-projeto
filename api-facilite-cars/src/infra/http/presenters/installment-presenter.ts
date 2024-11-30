@@ -1,4 +1,4 @@
-import type { Installment } from '@/domain/enterprise/entities/installment'
+import { Installment } from '@/domain/enterprise/entities/Installment';
 
 export class InstalmentPresenter {
   static toHTTP(installment: Installment) {
@@ -10,6 +10,6 @@ export class InstalmentPresenter {
       isPaid: installment.isPaid,
       createdAt: installment.createdAt,
       updatedAt: installment.updatedAt,
-    }
+    };
   }
 }

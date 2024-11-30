@@ -157,10 +157,10 @@ export default function CustomerPayment() {
                       />
 
                       <Dialog>
-                        <DialogTrigger>
+                        <DialogTrigger asChild>
                           <Button
                             variant="outline"
-                            className="border-2  w-10 border-red-600 text-red-600 hover:bg-red-400 hover:text-white transition"
+                            className="border-2 w-10 border-red-600 text-red-600 hover:bg-red-400 hover:text-white transition"
                           >
                             <Trash2 size={25} />
                           </Button>

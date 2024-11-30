@@ -1,68 +1,68 @@
-import { api } from '@/http/api-client'
-import { findManyOrderByCustomerId } from '@/http/find-many-order-by-customer-id'
-import { getInfoCustomer } from '@/http/get-info-customer'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { api } from "@/http/api-client";
+import { findManyOrderByCustomerId } from "@/http/find-many-order-by-customer-id";
+import { getInfoCustomer } from "@/http/get-info-customer";
+const { cookies } = await import("next/headers");
+import { redirect } from "next/navigation";
 
 interface FetchUserResponse {
   user: {
-    id: string
-    name: string
-    cpf: string
-    email: string
-    role: 'SELLER' | 'CUSTOMER' | 'BILLING' | 'ADMIN'
-    phone: string
-    password: string
-    createdAt: Date
-  }
+    id: string;
+    name: string;
+    cpf: string;
+    email: string;
+    role: "SELLER" | "CUSTOMER" | "BILLING" | "ADMIN";
+    phone: string;
+    password: string;
+    createdAt: Date;
+  };
 }
 
 export async function isAuthenticated() {
-  const cookiesStore = await cookies()
+  const cookiesStore = await cookies();
 
-  return !!cookiesStore.get('token')?.value
+  return !!cookiesStore.get("token")?.value;
 }
 
 export async function auth() {
-  const token = await isAuthenticated()
+  const token = await isAuthenticated();
 
   if (!token) {
-    redirect('/auth/sign-in')
+    redirect("/auth/sign-in");
   }
 
   try {
-    const user = await api.get('me').json<FetchUserResponse>()
+    const user = await api.get("me").json<FetchUserResponse>();
 
-    return user.user
+    return user.user;
   } catch (err) {}
 }
 
 export async function getInfoCustomers() {
-  const user = await auth()
+  const user = await auth();
 
   if (!user?.id) {
-    redirect('/auth/sign-in')
+    redirect("/auth/sign-in");
   }
 
   try {
     const customer = await getInfoCustomer({
       userId: user.id,
-    })
+    });
 
-    return customer
+    return customer;
   } catch (err) {}
 }
 
 export async function getOrderByCustomerId() {
-  const customer = await getInfoCustomers()
+  const customer = await getInfoCustomers();
 
   if (!customer?.id) {
-    return
+    return;
   }
 
   try {
-    const order = await findManyOrderByCustomerId({ customerId: customer.id })
+    const order = await findManyOrderByCustomerId({ customerId: customer.id });
 
-    return order
+    return order;
   } catch (err) {}
 }
