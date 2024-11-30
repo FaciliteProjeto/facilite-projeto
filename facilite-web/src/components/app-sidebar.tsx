@@ -28,6 +28,10 @@ const items = [
     title: 'Clientes',
     url: '/seller/:id',
   },
+  {
+    title: 'Clientes',
+    url: '/seller/:id',
+  },
 ]
 
 export function AppSidebar() {
