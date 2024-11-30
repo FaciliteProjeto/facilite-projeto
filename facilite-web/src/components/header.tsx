@@ -1,10 +1,10 @@
-import { ArrowBigDown, Bell, Search } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
-import { Input } from './ui/input'
+import { ArrowBigDown, Bell, Search } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Input } from "./ui/input";
 
 export function Header() {
   return (
-    <div className="bg-yellow-400 w-full p-2 items-center justify-between flex flex-row">
+    <div className="bg-gray-200 w-full p-2 items-center justify-between flex flex-row">
       <h2 className="font-bold text-black ">
         Seja bem vindo Marlison Bentes Mourão
       </h2>
@@ -28,5 +28,5 @@ export function Header() {
         <ArrowBigDown size={25} />
       </div>
     </div>
-  )
+  );
 }
