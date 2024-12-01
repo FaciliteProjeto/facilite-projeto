@@ -80,6 +80,7 @@ model Car {
   id                String @id @default(uuid())
   chassisNumber     String @unique @map("chassis_number")
   licensePlate      String @unique @map("license_plate")
+  posterUrl         String @map("poster_url")
   brand             String
   model             String
   manufacturingYear Int    @map("manu_facturing_year")

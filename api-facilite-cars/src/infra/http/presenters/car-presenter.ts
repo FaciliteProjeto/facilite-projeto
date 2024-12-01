@@ -1,4 +1,4 @@
-import type { Cars } from '@/domain/enterprise/entities/cars'
+import type { Cars } from '@/domain/enterprise/entities/cars';
 
 export class CarPresenter {
   static toHTTP(car: Cars) {
@@ -12,6 +12,7 @@ export class CarPresenter {
       manufacturingYear: car.manufacturingYear,
       modelYear: car.modelYear,
       color: car.color,
-    }
+      posterUrl: car.posterUrl,
+    };
   }
 }

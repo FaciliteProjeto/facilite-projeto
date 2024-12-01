@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Sidebar,
@@ -10,32 +10,28 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarTrigger,
-} from '@/components/ui/sidebar'
-import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+} from "@/components/ui/sidebar";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const items = [
   {
-    title: 'Catálogo',
-    url: '/',
+    title: "Catálogo",
+    url: "/",
   },
   {
-    title: 'Pagamentos',
-    url: '/customer',
+    title: "Pagamentos",
+    url: "/customer",
   },
   {
-    title: 'Clientes',
-    url: '/seller/:id',
+    title: "Clientes",
+    url: "/seller/:id",
   },
-  {
-    title: 'Clientes',
-    url: '/seller/:id',
-  },
-]
+];
 
 export function AppSidebar() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <Sidebar>
@@ -52,7 +48,7 @@ export function AppSidebar() {
             className="w-28 h-[100px]"
             sizes="100vh"
             style={{
-              objectFit: 'contain',
+              objectFit: "contain",
             }}
           />
         </SidebarHeader>
@@ -60,7 +56,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-3">
-              {items.map(item => (
+              {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <Link
@@ -68,8 +64,8 @@ export function AppSidebar() {
                       className={`flex items-center justify-center text-sm font-medium w-full h-full p-2 
                         ${
                           pathname === item.url
-                            ? 'bg-[#F9D270] text-black'
-                            : 'text-white hover:bg-[#F9D270] hover:text-black focus:bg-[#F9D270] focus:text-black'
+                            ? "bg-[#F9D270] text-black"
+                            : "text-white hover:bg-[#F9D270] hover:text-black focus:bg-[#F9D270] focus:text-black"
                         }`}
                     >
                       {item.title}
@@ -82,5 +78,5 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
-  )
+  );
 }
