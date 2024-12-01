@@ -9,6 +9,7 @@ export function makerUser(override: Partial<User> = {}, id?: UniqueEntityID) {
       cpf: faker.number.bigInt().toString(),
       email: faker.internet.email(),
       password: faker.internet.password(),
+      role: 'ADMIN',
       phone: faker.phone.number(),
       ...override,
     },
