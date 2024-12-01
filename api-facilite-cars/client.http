@@ -148,19 +148,19 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "userId": "86de2663-5c5b-4960-96c6-c7d9a111af88",
-  "carId": "42c299a8-9e68-4504-8d60-4eff70c38615",
+  "userId": "05a710da-fb5a-46ac-89a7-41c4ee850203",
+  "carId": "12ba7d51-915d-4a04-93bf-8390d6f3e250",
   "price": 10000,
   "orderType": "PURCHASE",
   "installmentsCount": 5,
-  "customerId": "4a1cb598-c7d5-4225-a6b0-f70cefced0e6"
+  "customerId": "aa374aff-b85c-4b94-b473-a2ce1bf93fba"
 }
 
 
 ###
 
 # @name get_installments_by_orderId
-Get {{baseUrl}}/installments/ea299c81-21fc-48fb-8ef1-419f7b0565b9
+Get {{baseUrl}}/installments/3992f91f-d769-4214-aa3e-5dfce54d1055
 Content-Type: application/json
 Authorization:  Bearer {{authToken}}
 
