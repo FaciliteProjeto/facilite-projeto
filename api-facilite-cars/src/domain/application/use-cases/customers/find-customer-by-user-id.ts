@@ -4,11 +4,11 @@ import { Injectable } from '@nestjs/common'
 import { CustomersRepository } from '../../repositories/customers-repository'
 import { WrongHandleError } from '../errors/wrong-handle-error'
 
-interface FindCustomerUseCaseRequest {
+interface FindCustomerByUserIdUseCaseRequest {
   userId: string
 }
 
-type FindCustomerUseCaseResponse = Either<
+type FindCustomerByUserIdUseCaseResponse = Either<
   WrongHandleError,
   {
     customer: Customers
@@ -21,7 +21,7 @@ export class FindCustomerByUserIdUseCase {
 
   async execute({
     userId,
-  }: FindCustomerUseCaseRequest): Promise<FindCustomerUseCaseResponse> {
+  }: FindCustomerByUserIdUseCaseRequest): Promise<FindCustomerByUserIdUseCaseResponse> {
     const customer = await this.customerRepository.findByUserId(userId)
 
     if (!customer) {
