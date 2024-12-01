@@ -1,6 +1,6 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Customers } from '@/domain/enterprise/entities/customers';
-import type { Prisma, Customer as PrismaCustomer } from '@prisma/client';
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Customers } from '@/domain/enterprise/entities/customers'
+import type { Prisma, Customer as PrismaCustomer } from '@prisma/client'
 
 export class PrismaCustomerMapper {
   static toDomain(raw: PrismaCustomer): Customers {
@@ -9,6 +9,7 @@ export class PrismaCustomerMapper {
         name: raw.name,
         cpf: raw.cpf,
         income: raw.income,
+        email: raw.email,
         city: raw.city,
         state: raw.state,
         homePhone: raw.homePhone,
@@ -16,15 +17,17 @@ export class PrismaCustomerMapper {
         mobilePhone: raw.mobilePhone,
         streetAddress: raw.streetAddress,
         createdAt: raw.createdAt,
+        deletedAt: raw.deletedAt,
       },
-      new UniqueEntityID(raw.id),
-    );
+      new UniqueEntityID(raw.id)
+    )
   }
 
   static toPrisma(customer: Customers): Prisma.CustomerUncheckedCreateInput {
     return {
       id: customer.id.toString(),
       name: customer.name,
+      email: customer.email,
       cpf: customer.cpf,
       city: customer.city,
       income: customer.income,
@@ -34,6 +37,7 @@ export class PrismaCustomerMapper {
       state: customer.state,
       streetAddress: customer.streetAddress,
       createdAt: customer.createdAt,
-    };
+      deletedAt: customer.deletedAt,
+    }
   }
 }

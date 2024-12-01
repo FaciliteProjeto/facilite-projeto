@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import { getOrderByCustomerId } from "@/auth/auth";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function CustomerPayment() {
   const [orders, setOrders] = useState([]);

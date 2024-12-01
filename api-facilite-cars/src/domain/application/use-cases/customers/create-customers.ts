@@ -58,6 +58,7 @@ export class CreateCustomerUseCase {
       mobilePhone,
       income,
       userId: user.id,
+      email,
     })
 
     await this.userRepository.create(user)

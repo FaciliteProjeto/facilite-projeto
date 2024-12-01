@@ -26,7 +26,7 @@ const items = [
   },
   {
     title: "Clientes",
-    url: "/seller/:id",
+    url: "/seller",
   },
 ];
 
