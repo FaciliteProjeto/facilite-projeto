@@ -31,6 +31,7 @@ import { type CreateSellerRequest, createSeller } from '@/http/create-seller'
 import { deleteSeller } from '@/http/delete-seller'
 import { fetchSellers } from '@/http/fetch-sellers'
 import { type UpdateSellerRequest, updateSeller } from '@/http/update-seller'
+import { toast } from 'sonner'
 
 const createSellerSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
@@ -116,8 +117,10 @@ export default function Customers() {
         id: selectedSeller.id,
         income: Number(data.income),
       })
+
+      toast.success("Registro atualizado com sucesso!", { className: 'bg-green-800 text-green-300'});
     } catch (error) {
-      console.error(error)
+      toast.success("Erro ao atualizar registro!");
     }
   }
 

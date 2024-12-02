@@ -32,6 +32,7 @@ const CarModal = ({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white w-11/12 max-w-lg rounded-lg shadow-lg p-6 relative">
         <Button
+          variant='outline'
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
         >

@@ -150,6 +150,7 @@ const handleFinalize = async () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="border rounded-md px-4 py-2 w-full"
             placeholder="Pesquisar CPF"
+            maxLength={11}
           />
           <Button
             onClick={handleSearch}

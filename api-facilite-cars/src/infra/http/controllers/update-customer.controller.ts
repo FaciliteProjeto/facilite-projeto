@@ -1,6 +1,5 @@
 import { UpdateCustomerUseCase } from '@/domain/application/use-cases/customers/update-customer'
 import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
-import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 import {
   BadRequestException,
   Body,
@@ -9,7 +8,6 @@ import {
   Param,
   Put,
   UseGuards,
-  UsePipes,
 } from '@nestjs/common'
 import { z } from 'zod'
 
@@ -34,7 +32,7 @@ export class UpdateCustomerController {
 
   @Put()
   @HttpCode(204)
-  @UsePipes(new ZodValidationPipe(updateCustomerBodySchema))
+  // @UsePipes(new ZodValidationPipe(updateCustomerBodySchema))
   async handler(
     @Body() body: UpdateCustomerBodySchema,
     @Param('customerId') customerId: string
