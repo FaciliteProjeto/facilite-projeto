@@ -1,14 +1,19 @@
 import { type Either, left, right } from '@/core/either'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Customers } from '@/domain/enterprise/entities/customers'
 import { Injectable } from '@nestjs/common'
 import { CustomersRepository } from '../../repositories/customers-repository'
 import { WrongHandleError } from '../errors/wrong-handle-error'
 
 interface UpdateCustomerRequest {
   id: string
-  cpf: string
-  name: string
+  cpf?: string
+  name?: string
+  email?: string
+  homePhone?: string
+  income?: number
+  mobilePhone?: string
+  city?: string
+  state?: string
+  streetAddress?: string
 }
 
 type UpdateCustomerResponse = Either<WrongHandleError, null>
@@ -21,28 +26,35 @@ export class UpdateCustomerUseCase {
     id,
     cpf,
     name,
+    email,
+    homePhone,
+    income,
+    mobilePhone,
+    city,
+    state,
+    streetAddress,
   }: UpdateCustomerRequest): Promise<UpdateCustomerResponse> {
     const customerExists = await this.customerRepository.findUnique(id)
 
     if (!customerExists) {
-      return left(new WrongHandleError('Cliente não encotrado!'))
+      return left(new WrongHandleError('Cliente não encontrado!'))
     }
 
-    const customer = Customers.create(
-      {
-        cpf,
-        name,
-        homePhone: customerExists.homePhone,
-        income: customerExists.income,
-        mobilePhone: customerExists.mobilePhone,
-        city: customerExists.city,
-        state: customerExists.state,
-        streetAddress: customerExists.streetAddress,
-      },
-      new UniqueEntityID(id)
-    )
+    if (cpf && cpf !== customerExists.cpf) customerExists.setCpf(cpf)
+    if (email && email !== customerExists.email) customerExists.setCpf(email)
+    if (name && name !== customerExists.name) customerExists.setName(name)
+    if (homePhone && homePhone !== customerExists.homePhone)
+      customerExists.setHomePhone(homePhone)
+    if (income && income !== customerExists.income)
+      customerExists.setIncome(income)
+    if (mobilePhone && mobilePhone !== customerExists.mobilePhone)
+      customerExists.setMobilePhone(mobilePhone)
+    if (city && city !== customerExists.city) customerExists.setCity(city)
+    if (state && state !== customerExists.state) customerExists.setState(state)
+    if (streetAddress && streetAddress !== customerExists.streetAddress)
+      customerExists.setStreetAddress(streetAddress)
 
-    await this.customerRepository.update(customer)
+    await this.customerRepository.update(customerExists)
 
     return right(null)
   }

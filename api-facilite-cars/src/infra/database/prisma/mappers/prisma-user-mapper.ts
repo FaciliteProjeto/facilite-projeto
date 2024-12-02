@@ -9,6 +9,7 @@ export class PrismaUserMapper {
         cpf: raw.cpf,
         email: raw.email,
         name: raw.name,
+        role: raw.role,
         password: raw.password,
         phone: raw.phone,
         createdAt: raw.createdAt,

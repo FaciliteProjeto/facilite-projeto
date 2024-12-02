@@ -7,16 +7,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  SELLER
+  CUSTOMER
+  BILLING
+  ADMIN
+}
+
 model User {
-  id        String   @id @default(uuid())
+  id        String     @id @default(uuid())
   name      String
-  email     String   @unique
+  email     String     @unique
   password  String
   phone     String
-  cpf       String   @unique
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  cpf       String     @unique
+  role      Role       @default(CUSTOMER)
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
   orders    Order[]
+  Customer  Customer[]
 
   @@map("users")
 }
@@ -38,9 +47,10 @@ model Order {
 
   orderType OrderType @map("order_type")
 
-  user     User     @relation(fields: [userId], references: [id])
-  customer Customer @relation(fields: [customerId], references: [id])
-  car      Car      @relation(fields: [carId], references: [id])
+  user        User          @relation(fields: [userId], references: [id])
+  customer    Customer      @relation(fields: [customerId], references: [id])
+  car         Car           @relation(fields: [carId], references: [id])
+  Installment Installment[]
 
   @@map("orders")
 }
@@ -49,14 +59,19 @@ model Customer {
   id            String    @id @default(uuid())
   cpf           String    @unique
   name          String
+  email         String?
   streetAddress String
   state         String
   city          String
   homePhone     String    @map("home_phone")
   mobilePhone   String    @map("mobile_phone")
   income        Float
+  userId        String    @map("user_id")
   createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime? @updatedAt @map("updated_at")
+  updatedAt     DateTime? @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
+
+  user User @relation(fields: [userId], references: [id])
 
   orders Order[]
 
@@ -67,6 +82,7 @@ model Car {
   id                String @id @default(uuid())
   chassisNumber     String @unique @map("chassis_number")
   licensePlate      String @unique @map("license_plate")
+  posterUrl         String @map("poster_url")
   brand             String
   model             String
   manufacturingYear Int    @map("manu_facturing_year")
@@ -77,4 +93,18 @@ model Car {
   order Order[]
 
   @@map("cars")
+}
+
+model Installment {
+  id        String   @id @default(uuid())
+  amount    Float
+  dueDate   DateTime @map("due_date")
+  isPaid    Boolean  @default(false) @map("is_paid")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  orderId String @map("order_id")
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  @@map("installments")
 }

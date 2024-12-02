@@ -1,6 +1,6 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Cars } from '@/domain/enterprise/entities/cars'
-import { type Prisma, Car as PrismaCars } from '@prisma/client'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { Cars } from '@/domain/enterprise/entities/cars';
+import { type Prisma, Car as PrismaCars } from '@prisma/client';
 
 export class PrismaCarsMapper {
   static toDomain(raw: PrismaCars): Cars {
@@ -14,9 +14,10 @@ export class PrismaCarsMapper {
         modelYear: raw.modelYear,
         color: raw.color,
         value: raw.value,
+        posterUrl: raw.posterUrl,
       },
-      new UniqueEntityID(raw.id)
-    )
+      new UniqueEntityID(raw.id),
+    );
   }
 
   static toPrisma(car: Cars): Prisma.CarUncheckedCreateInput {
@@ -30,6 +31,7 @@ export class PrismaCarsMapper {
       modelYear: car.modelYear,
       color: car.color,
       value: car.value,
-    }
+      posterUrl: car.posterUrl ?? '',
+    };
   }
 }

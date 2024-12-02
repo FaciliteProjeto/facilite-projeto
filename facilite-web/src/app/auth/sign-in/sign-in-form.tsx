@@ -5,7 +5,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { AlertTriangle } from 'lucide-react'
+import { AlertTriangle, LoaderIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { signInWithEmailPassword } from './action'
 
@@ -61,8 +61,8 @@ export default function SignInForm() {
         <span className="mt-3 inline-block text-xs">Esquece a senha?</span>
       </div>
 
-      <Button type="submit" className="w-full mt-3">
-        Entrar
+      <Button type="submit" disabled={isPending} className="w-full mt-3">
+        {isPending ? <LoaderIcon className="size-4 animate-spin" /> : 'Entrar'}
       </Button>
     </form>
   )

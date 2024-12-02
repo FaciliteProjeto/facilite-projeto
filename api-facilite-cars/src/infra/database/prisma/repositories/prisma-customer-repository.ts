@@ -17,7 +17,14 @@ export class PrismaCustomerRepository implements CustomersRepository {
   }
 
   async findMany(): Promise<Customers[]> {
-    const response = await this.prisma.customer.findMany()
+    const response = await this.prisma.customer.findMany({
+      where: {
+        deletedAt: null,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
 
     const customer = response.map(PrismaCustomerMapper.toDomain)
 
@@ -27,6 +34,20 @@ export class PrismaCustomerRepository implements CustomersRepository {
   async findUnique(id: string): Promise<Customers | null> {
     const response = await this.prisma.customer.findUnique({
       where: { id },
+    })
+
+    if (!response) {
+      return null
+    }
+
+    const customer = PrismaCustomerMapper.toDomain(response)
+
+    return customer
+  }
+
+  async findByUserId(userId: string): Promise<Customers | null> {
+    const response = await this.prisma.customer.findFirst({
+      where: { userId },
     })
 
     if (!response) {
@@ -48,8 +69,11 @@ export class PrismaCustomerRepository implements CustomersRepository {
   }
 
   async delete(id: string): Promise<void> {
-    await this.prisma.customer.delete({
+    await this.prisma.customer.update({
       where: { id },
+      data: {
+        deletedAt: new Date().toISOString(),
+      },
     })
   }
 }

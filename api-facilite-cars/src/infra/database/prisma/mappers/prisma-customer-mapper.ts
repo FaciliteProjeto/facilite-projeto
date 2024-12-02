@@ -9,12 +9,15 @@ export class PrismaCustomerMapper {
         name: raw.name,
         cpf: raw.cpf,
         income: raw.income,
+        email: raw.email,
         city: raw.city,
         state: raw.state,
         homePhone: raw.homePhone,
+        userId: new UniqueEntityID(raw.userId),
         mobilePhone: raw.mobilePhone,
         streetAddress: raw.streetAddress,
         createdAt: raw.createdAt,
+        deletedAt: raw.deletedAt,
       },
       new UniqueEntityID(raw.id)
     )
@@ -24,14 +27,17 @@ export class PrismaCustomerMapper {
     return {
       id: customer.id.toString(),
       name: customer.name,
+      email: customer.email,
       cpf: customer.cpf,
       city: customer.city,
       income: customer.income,
+      userId: customer.userId.toString(),
       homePhone: customer.homePhone,
       mobilePhone: customer.mobilePhone,
       state: customer.state,
       streetAddress: customer.streetAddress,
       createdAt: customer.createdAt,
+      deletedAt: customer.deletedAt,
     }
   }
 }

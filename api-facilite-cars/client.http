@@ -1,6 +1,6 @@
 
 @baseUrl = http://localhost:3333
-@authToken = {{authenticate.response.body.access_token}}
+@authToken = {{authenticate.response.body.token}}
 
 
 # @name create_account
@@ -87,7 +87,8 @@ Authorization: Bearer {{authToken}}
   "state": "SP",
   "city": "São Paulo",
   "mobilePhone": "987654321",
-  "income": 5000
+  "income": 5000,
+  "email": "jane@customer.com"
 }
 
 ###
@@ -122,3 +123,60 @@ Authorization: Bearer {{authToken}}
   "name": "Jane Doe",
   "cpf": "12345678901"
 }
+
+
+###
+
+# @name find_many_cars
+Get  {{baseUrl}}/cars
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+
+###
+
+# @name find_unique_car
+Get  {{baseUrl}}/cars/33ab0010-69f5-400a-870c-4405db86b520
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name create_order
+Post  {{baseUrl}}/orders
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "userId": "05a710da-fb5a-46ac-89a7-41c4ee850203",
+  "carId": "2ead7794-7a6b-48c3-ba98-10e459e40cf2",
+  "price": 10000,
+  "orderType": "PURCHASE",
+  "installmentsCount": 5,
+  "customerId": "aa374aff-b85c-4b94-b473-a2ce1bf93fba"
+}
+
+
+###
+
+# @name get_installments_by_orderId
+Get {{baseUrl}}/installments/3992f91f-d769-4214-aa3e-5dfce54d1055
+Content-Type: application/json
+Authorization:  Bearer {{authToken}}
+
+###
+
+# @name find_customer_by_user_id
+Get {{baseUrl}}/customers/71c1dea8-5bb3-4a05-b7de-f474c2baad78/user
+Content-Type: application/json
+Authorization:  Bearer {{authToken}}
+
+###
+
+# @name find_orders_by_customer_id
+Get {{baseUrl}}/orders/4a1cb598-c7d5-4225-a6b0-f70cefced0e6/customer
+Content-Type: application/json
+Authorization:  Bearer {{authToken}}
+
+
+

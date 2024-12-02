@@ -16,6 +16,7 @@ const createAccountBodySchema = z.object({
   password: z.string(),
   cpf: z.string(),
   phone: z.string(),
+  role: z.enum(['SELLER', 'CUSTOMER', 'BILLING', 'ADMIN']),
 })
 
 type CreateAccountBodySchema = z.infer<typeof createAccountBodySchema>
@@ -28,7 +29,7 @@ export class CreateAccountController {
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(createAccountBodySchema))
   async handler(@Body() body: CreateAccountBodySchema) {
-    const { name, email, password, cpf, phone } = body
+    const { name, email, password, cpf, phone, role } = body
 
     const response = await this.createUser.execute({
       name,
@@ -36,6 +37,7 @@ export class CreateAccountController {
       password,
       cpf,
       phone,
+      role,
     })
 
     if (response.isLeft()) {

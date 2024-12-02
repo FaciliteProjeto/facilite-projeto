@@ -6,6 +6,7 @@ interface UserProps {
   name: string
   cpf: string
   email: string
+  role: 'SELLER' | 'CUSTOMER' | 'BILLING' | 'ADMIN'
   phone: string
   password: string
   createdAt: Date
@@ -22,6 +23,10 @@ export class User extends Entity<UserProps> {
 
   get email() {
     return this.props.email
+  }
+
+  get role() {
+    return this.props.role
   }
 
   get phone() {

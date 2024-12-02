@@ -8,6 +8,7 @@ export class UserPresenter {
       cpf: user.cpf,
       name: user.name,
       phone: user.phone,
+      role: user.role,
     }
   }
 }

@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common'
 
-@Controller('customers/:customerId')
+@Controller('customers/:customerId/delete')
 @UseGuards(JwtAuthGuard)
 export class DeleteCustomerController {
   constructor(private deleteCustomer: DeleteCustomerUseCase) {}

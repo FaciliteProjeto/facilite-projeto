@@ -1,6 +1,6 @@
-import { CreateCarUseCase } from '@/domain/application/use-cases/car/create-car'
-import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
-import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
+import { CreateCarUseCase } from '@/domain/application/use-cases/car/create-car';
+import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard';
+import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe';
 import {
   BadRequestException,
   Body,
@@ -9,8 +9,8 @@ import {
   Post,
   UseGuards,
   UsePipes,
-} from '@nestjs/common'
-import { z } from 'zod'
+} from '@nestjs/common';
+import { z } from 'zod';
 
 const createCarBodySchema = z.object({
   chassisNumber: z.string(),
@@ -21,9 +21,10 @@ const createCarBodySchema = z.object({
   modelYear: z.number().int().min(1886),
   color: z.string(),
   value: z.number(),
-})
+  posterUrl: z.string().optional(),
+});
 
-type CreateCarBodySchema = z.infer<typeof createCarBodySchema>
+type CreateCarBodySchema = z.infer<typeof createCarBodySchema>;
 
 @Controller('cars')
 @UseGuards(JwtAuthGuard)
@@ -43,7 +44,8 @@ export class CreateCarController {
       modelYear,
       color,
       value,
-    } = body
+      posterUrl,
+    } = body;
 
     const response = await this.createCar.execute({
       chassisNumber,
@@ -54,10 +56,11 @@ export class CreateCarController {
       modelYear,
       color,
       value,
-    })
+      posterUrl,
+    });
 
     if (response.isLeft()) {
-      throw new BadRequestException(response.value)
+      throw new BadRequestException(response.value);
     }
   }
 }

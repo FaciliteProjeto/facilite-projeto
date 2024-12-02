@@ -15,6 +15,7 @@ import { z } from 'zod'
 const createCustomerBodySchema = z.object({
   name: z.string(),
   cpf: z.string(),
+  email: z.string().email(),
   homePhone: z.string(),
   streetAddress: z.string(),
   state: z.string(),
@@ -43,6 +44,7 @@ export class CreateCustomerController {
       mobilePhone,
       state,
       streetAddress,
+      email,
     } = body
 
     const response = await this.createCustomer.execute({
@@ -54,6 +56,7 @@ export class CreateCustomerController {
       mobilePhone,
       state,
       streetAddress,
+      email,
     })
 
     if (response.isLeft()) {

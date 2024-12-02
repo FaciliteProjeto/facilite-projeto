@@ -1,4 +1,7 @@
 import { isAuthenticated } from '@/auth/auth'
+import { AppSidebar } from '@/components/app-sidebar'
+import { Header } from '@/components/header'
+import { SidebarProvider } from '@/components/ui/sidebar'
 import { redirect } from 'next/navigation'
 
 export default async function AppLayout({
@@ -12,5 +15,17 @@ export default async function AppLayout({
     redirect('/auth/sign-in')
   }
 
-  return <>{children}</>
+  return (
+    <>
+      <SidebarProvider>
+        <AppSidebar />
+
+        <div className="w-full">
+          <Header />
+
+          {children}
+        </div>
+      </SidebarProvider>
+    </>
+  )
 }
