@@ -30,6 +30,7 @@ const PaymentModal = ({
     string | null
   >(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filteredClients, setFilteredClients] = useState<Client[]>([]);
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
 
   if (!isOpen) return null;
@@ -57,24 +58,21 @@ const PaymentModal = ({
     onClose();
   };
 
-  const handleSearch = (term: string) => {
-    setSearchTerm(term);
+  const handleSearch = () => {
     const filtered = mockClients.filter((client) =>
-      client.name.toLowerCase().includes(term.toLowerCase())
+      client.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    if (filtered.length === 1) {
-      setSelectedClient(filtered[0]);
-      if (carDetails) {
-        carDetails.cliente = filtered[0].name;
-        carDetails.cpf = filtered[0].cpf;
-      }
-    } else {
-      setSelectedClient(null);
-      if (carDetails) {
-        carDetails.cliente = null;
-        carDetails.cpf = null;
-      }
+    setFilteredClients(filtered);
+  };
+
+  const handleClientSelect = (client: Client) => {
+    setSelectedClient(client);
+    if (carDetails) {
+      carDetails.cliente = client.name;
+      carDetails.cpf = client.cpf;
     }
+    setSearchTerm("");
+    setFilteredClients([]);
   };
 
   return (
@@ -103,7 +101,7 @@ const PaymentModal = ({
               onClick={() => handlePaymentSelection(option.name)}
               className={`p-4 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer text-center font-medium text-gray-700 flex-1 transition duration-300 ease-in-out ${
                 selectedPaymentMethod === option.name
-                  ? "bg-green-500 text-white border-2 border-gray-900"
+                  ? " text-gray-700 border-2 border-green-300"
                   : ""
               }`}
             >
@@ -115,21 +113,44 @@ const PaymentModal = ({
           ))}
         </div>
 
-        <div className="mt-5">
-          <SearchBar
+        <div className="mt-5 flex items-center space-x-2">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="border rounded-md px-4 py-2 w-full"
             placeholder="Pesquisar cliente"
-            searchTerm={searchTerm}
-            setSearchTerm={handleSearch}
           />
-          <div className="mt-4">
-            {selectedClient && (
-              <div className="text-gray-600">
-                <strong>Cliente Selecionado: </strong>
-                {selectedClient.name} - {selectedClient.cpf}
-              </div>
-            )}
-          </div>
+          <button
+            onClick={handleSearch}
+            className="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+          >
+            Pesquisar
+          </button>
         </div>
+
+        {filteredClients.length > 0 && (
+          <div className="mt-4">
+            <ul>
+              {filteredClients.map((client) => (
+                <li
+                  key={client.id}
+                  onClick={() => handleClientSelect(client)}
+                  className="cursor-pointer text-gray-600 hover:bg-gray-100 px-4 py-2 rounded"
+                >
+                  {client.name} - {client.cpf}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {selectedClient && (
+          <div className="mt-4 text-gray-600">
+            <strong>Cliente Selecionado: </strong>
+            {selectedClient.name} - {selectedClient.cpf}
+          </div>
+        )}
 
         {selectedPaymentMethod && carDetails && (
           <div className="mt-6">

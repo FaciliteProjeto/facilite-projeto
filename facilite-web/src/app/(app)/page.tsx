@@ -10,16 +10,16 @@ import PaymentModal from "@/components/ui/modalPaymentType";
 
 type ModalProps = {
   isOpen: boolean;
-  carName?: string;
-  carPrice?: number;
+  model?: string;
+  value?: number;
   onClose: () => void;
   onOpenPaymentModal: () => void;
 };
 
 const CarModal = ({
   isOpen,
-  carName,
-  carPrice,
+  model,
+  value,
   onClose,
   onOpenPaymentModal,
 }: ModalProps) => {
@@ -37,8 +37,8 @@ const CarModal = ({
         <h2 className="text-2xl font-bold mb-4 text-gray-700">
           Detalhes do Carro
         </h2>
-        <p className="text-lg text-gray-600">Nome do Carro: {carName}</p>
-        <p className="text-lg text-gray-600">Preço: R$ {carPrice}</p>
+        <p className="text-lg text-gray-600">Nome do Carro: {model}</p>
+        <p className="text-lg text-gray-600">Preço: R$ {value}</p>
         <button
           onClick={onOpenPaymentModal}
           className="mt-4 w-full bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600"
@@ -124,7 +124,7 @@ export default function Home() {
 
       <CarModal
         isOpen={isModalOpen}
-        carName={selectedCar?.model}
+        model={selectedCar?.model}
         onClose={handleCloseModal}
         onOpenPaymentModal={handleOpenPaymentModal}
       />
