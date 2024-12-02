@@ -3,6 +3,7 @@ import { FindManyCarUseCase } from '@/domain/application/use-cases/car/find-many
 import { FindUniqueCarUseCase } from '@/domain/application/use-cases/car/find-unique.car'
 import { CreateCustomerUseCase } from '@/domain/application/use-cases/customers/create-customers'
 import { DeleteCustomerUseCase } from '@/domain/application/use-cases/customers/delete-customer'
+import { FindCustomerByCpfUseCase } from '@/domain/application/use-cases/customers/find-customer-by-cpf'
 import { FindCustomerByUserIdUseCase } from '@/domain/application/use-cases/customers/find-customer-by-user-id'
 import { FindManyCustomerUseCase } from '@/domain/application/use-cases/customers/find-many-customer'
 import { FindUniqueCustomerUseCase } from '@/domain/application/use-cases/customers/find-unique-customer'
@@ -26,6 +27,7 @@ import { CreateCustomerController } from './controllers/create-customer.controll
 import { CreateOrderController } from './controllers/create-order-controller'
 import { DeleteCustomerController } from './controllers/delete-customer.controller'
 import { DeleteUserController } from './controllers/delete-user.controller'
+import { FindCustomerByCpfController } from './controllers/find-customer-by-ssn.controller'
 import { FindCustomerByUserIdController } from './controllers/find-customer-by-user-id.controller'
 import { FindManyCarController } from './controllers/find-many-car.controller'
 import { FindManyCustomerController } from './controllers/find-many-customer.controller'
@@ -65,6 +67,7 @@ import { UpdateUserController } from './controllers/update-user.controller'
     FindCustomerByUserIdController,
 
     FindManyOrderController,
+    FindCustomerByCpfController,
   ],
 
   providers: [
@@ -92,6 +95,8 @@ import { UpdateUserController } from './controllers/update-user.controller'
 
     FindCustomerByUserIdUseCase,
     FindManyOrderUseCase,
+
+    FindCustomerByCpfUseCase,
   ],
 })
 export class HttpModule {}
