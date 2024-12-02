@@ -1,12 +1,54 @@
 "use client";
 
-import { useState } from "react"; // Para gerenciar o estado da pesquisa
-import { CardCarTest } from "@/components/card-car-test";
+import { useState } from "react";
 import { SearchBar } from "@/components/ui/searchBar";
 import MessageEffect from "@/components/ui/titleAnimated";
 import { fetchCar } from "@/http/fetch-cars";
 import { useQuery } from "@tanstack/react-query";
+import { CardCar } from "@/components/card-car";
+import PaymentModal from "@/components/ui/modalPaymentType";
 
+type ModalProps = {
+  isOpen: boolean;
+  carName?: string;
+  carPrice?: number;
+  onClose: () => void;
+  onOpenPaymentModal: () => void;
+};
+
+const CarModal = ({
+  isOpen,
+  carName,
+  carPrice,
+  onClose,
+  onOpenPaymentModal,
+}: ModalProps) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white w-11/12 max-w-lg rounded-lg shadow-lg p-6 relative">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+        >
+          ✕
+        </button>
+        <h2 className="text-2xl font-bold mb-4 text-gray-700">
+          Detalhes do Carro
+        </h2>
+        <p className="text-lg text-gray-600">Nome do Carro: {carName}</p>
+        <p className="text-lg text-gray-600">Preço: R$ {carPrice}</p>
+        <button
+          onClick={onOpenPaymentModal}
+          className="mt-4 w-full bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600"
+        >
+          Escolher Forma de Pagamento
+        </button>
+      </div>
+    </div>
+  );
+};
 export default function Home() {
   const { data: dataCars } = useQuery({
     queryKey: ["fetch-cars"],
@@ -14,6 +56,32 @@ export default function Home() {
   });
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isPaymentModalOpen, setPaymentModalOpen] = useState(false);
+  const [selectedCar, setSelectedCar] = useState<any>(null); // Alterado para armazenar o objeto completo
+  const [selectedPrice, setSelectedPrice] = useState<number | undefined>(
+    undefined
+  );
+
+  const handleOpenModal = (car: any) => {
+    setSelectedCar(car);
+    setSelectedPrice(car.value);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedCar(null);
+  };
+
+  const handleOpenPaymentModal = () => {
+    setModalOpen(false);
+    setPaymentModalOpen(true);
+  };
+
+  const handleClosePaymentModal = () => {
+    setPaymentModalOpen(false);
+  };
 
   const filteredCars = dataCars?.filter((car) =>
     car.model.toLowerCase().includes(searchTerm.toLowerCase())
@@ -42,11 +110,31 @@ export default function Home() {
           </h1>
         </div>
       )}
-      <div className="flex items-center justify-center gap-3 flex-wrap">
+      <div className="flex items-center justify-center gap-6 flex-wrap">
         {filteredCars?.map((item) => {
-          return <CardCarTest key={item.id} item={item} />;
+          return (
+            <CardCar
+              key={item.id}
+              item={item}
+              onClick={() => handleOpenModal(item)}
+            />
+          );
         })}
       </div>
+
+      <CarModal
+        isOpen={isModalOpen}
+        carName={selectedCar?.model}
+        onClose={handleCloseModal}
+        onOpenPaymentModal={handleOpenPaymentModal}
+      />
+
+      <PaymentModal
+        isOpen={isPaymentModalOpen}
+        onClose={handleClosePaymentModal}
+        onSelectPayment={(method: any) => method}
+        carDetails={selectedCar}
+      />
     </div>
   );
 }
