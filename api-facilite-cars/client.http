@@ -149,7 +149,7 @@ Authorization: Bearer {{authToken}}
 
 {
   "userId": "05a710da-fb5a-46ac-89a7-41c4ee850203",
-  "carId": "12ba7d51-915d-4a04-93bf-8390d6f3e250",
+  "carId": "2ead7794-7a6b-48c3-ba98-10e459e40cf2",
   "price": 10000,
   "orderType": "PURCHASE",
   "installmentsCount": 5,

@@ -1,8 +1,9 @@
-import { api } from "@/http/api-client";
-import { findManyOrderByCustomerId } from "@/http/find-many-order-by-customer-id";
-import { getInfoCustomer } from "@/http/get-info-customer";
-const { cookies } = await import("next/headers");
-import { redirect } from "next/navigation";
+import { api } from '@/http/api-client';
+import { findManyOrderByCustomerId } from '@/http/find-many-order-by-customer-id';
+import { getInfoCustomer } from '@/http/get-info-customer';
+import { redirect } from 'next/navigation';
+
+const { cookies } = await import('next/headers');
 
 interface FetchUserResponse {
   user: {
@@ -10,7 +11,7 @@ interface FetchUserResponse {
     name: string;
     cpf: string;
     email: string;
-    role: "SELLER" | "CUSTOMER" | "BILLING" | "ADMIN";
+    role: 'SELLER' | 'CUSTOMER' | 'BILLING' | 'ADMIN';
     phone: string;
     password: string;
     createdAt: Date;
@@ -19,48 +20,53 @@ interface FetchUserResponse {
 
 export async function isAuthenticated() {
   const cookiesStore = await cookies();
-  return !!cookiesStore.get("token")?.value;
+  return !!cookiesStore.get('token')?.value;
 }
 
 export async function auth() {
   const token = await isAuthenticated();
   if (!token) {
-    redirect("/auth/sign-in");
+    redirect('/auth/sign-in');
   }
+
   try {
-    const user = await api.get("me").json<FetchUserResponse>();
+    const user = await api.get('me').json<FetchUserResponse>();
     return user.user;
-  } catch (err) {}
+  } catch (err) {
+    console.error('Error fetching user:', err);
+  }
 }
 
 export async function getInfoCustomers() {
   const user = await auth();
   if (!user?.id) {
-    redirect("/auth/sign-in");
+    redirect('/auth/sign-in');
   }
+
   try {
     const customer = await getInfoCustomer({ userId: user.id });
     return customer;
-  } catch (err) {}
+  } catch (err) {
+    console.error('Error fetching customer info:', err);
+  }
 }
 
 export async function getOrderByCustomerId() {
   const customer = await getInfoCustomers();
-  console.log(customer?.id);
   if (!customer?.id) {
     return;
   }
+
   try {
     const order = await findManyOrderByCustomerId({ customerId: customer.id });
     return order;
   } catch (err) {
-    console.log(err);
+    console.error('Error fetching orders:', err);
   }
 }
 
 export async function signOut() {
   const cookiesStore = await cookies();
-  alert("aqui");
-  cookiesStore.delete("token");
-  redirect("/auth/sign-in");
+  cookiesStore.delete('token');
+  redirect('/auth/sign-in');
 }

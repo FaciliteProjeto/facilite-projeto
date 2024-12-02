@@ -14,13 +14,20 @@ import {
 import { z } from 'zod'
 
 const updateCustomerBodySchema = z.object({
-  name: z.string(),
-  cpf: z.string(),
+  name: z.string().optional(),
+  email: z.string().optional(),
+  cpf: z.string().optional(),
+  homePhone: z.string().optional(),
+  income: z.number().optional(),
+  mobilePhone: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
+  streetAddress: z.string().optional(),
 })
 
 type UpdateCustomerBodySchema = z.infer<typeof updateCustomerBodySchema>
 
-@Controller('customer/:customerId')
+@Controller('customer/:customerId/update')
 @UseGuards(JwtAuthGuard)
 export class UpdateCustomerController {
   constructor(private updateCustomer: UpdateCustomerUseCase) {}
@@ -32,12 +39,9 @@ export class UpdateCustomerController {
     @Body() body: UpdateCustomerBodySchema,
     @Param('customerId') customerId: string
   ) {
-    const { name, cpf } = body
-
     const response = await this.updateCustomer.execute({
       id: customerId,
-      name,
-      cpf,
+      ...body,
     })
 
     if (response.isLeft()) {

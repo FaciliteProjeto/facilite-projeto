@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { LucideIcon, User2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import React from "react";
 
 const CustomIcon: React.FC<{
   size?: number;
@@ -30,7 +29,7 @@ interface IForm {
   children: React.ReactNode;
   typeActiveDialogForm: boolean;
   triggerButtonContent?: React.ReactNode;
-  onConfirmAction: () => void;
+  onConfirmAction: () => Promise<void>;
   confirmButtonText?: string;
   cancelButtonText?: string;
   icon?: LucideIcon;
@@ -52,24 +51,24 @@ export default function FormComponent({
   isIcon = false,
 }: IForm) {
   return (
-    <Dialog>
-      <DialogTrigger>
+    <Dialog >
+      <DialogTrigger asChild>
         {triggerButtonContent ? (
           triggerButtonContent
         ) : (
-          <Button
-            variant="outline"
-            className={`${
-              isIcon
-                ? "py-1 w-10 px-2 mr-2 border-2 border-[#36659B] hover:bg-[#477ebd] hover:text-white transition"
-                : "bg-gray-800 text-white mb-3"
-            } p-2 items-center flex `}
-          >
-            {isIcon ? <CustomIcon Icon={icon} /> : titleButton}
-          </Button>
+      <Button
+          variant="outline"
+          className={`${
+            isIcon
+              ? "py-1 w-24 px-2 mr-2 border-2 border-[#36659B] hover:bg-[#477ebd] hover:text-white transition"
+              : "bg-gray-800 text-white mb-3"
+          } p-2 items-center inline-flex justify-center max-w-fit`}
+        >
+          {isIcon ? <CustomIcon Icon={icon} /> : titleButton}
+        </Button>
         )}
       </DialogTrigger>
-      <DialogContent className={dialogClassNames}>
+      <DialogContent className='w-96'>
         <DialogHeader>
           <DialogTitle className="flex items-center">
             <CustomIcon className="mr-2" Icon={icon} />

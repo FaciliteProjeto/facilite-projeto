@@ -5,6 +5,7 @@ export class CustomerPresenter {
     return {
       id: customer.id.toValue(),
       name: customer.name,
+      email: customer.email,
       cpf: customer.cpf,
       city: customer.city,
       income: customer.income,
@@ -13,6 +14,7 @@ export class CustomerPresenter {
       state: customer.state,
       streetAddress: customer.streetAddress,
       createdAt: customer.createdAt,
+      deletedAt: customer.deletedAt,
     }
   }
 }
