@@ -19,50 +19,48 @@ interface FetchUserResponse {
 
 export async function isAuthenticated() {
   const cookiesStore = await cookies();
-
   return !!cookiesStore.get("token")?.value;
 }
 
 export async function auth() {
   const token = await isAuthenticated();
-
   if (!token) {
     redirect("/auth/sign-in");
   }
-
   try {
     const user = await api.get("me").json<FetchUserResponse>();
-
     return user.user;
   } catch (err) {}
 }
 
 export async function getInfoCustomers() {
   const user = await auth();
-
   if (!user?.id) {
     redirect("/auth/sign-in");
   }
-
   try {
-    const customer = await getInfoCustomer({
-      userId: user.id,
-    });
-
+    const customer = await getInfoCustomer({ userId: user.id });
     return customer;
   } catch (err) {}
 }
 
 export async function getOrderByCustomerId() {
   const customer = await getInfoCustomers();
-
+  console.log(customer?.id);
   if (!customer?.id) {
     return;
   }
-
   try {
     const order = await findManyOrderByCustomerId({ customerId: customer.id });
-
     return order;
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function signOut() {
+  const cookiesStore = await cookies();
+  alert("aqui");
+  cookiesStore.delete("token");
+  redirect("/auth/sign-in");
 }
