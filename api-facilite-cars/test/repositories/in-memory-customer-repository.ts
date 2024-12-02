@@ -55,4 +55,14 @@ export class InMemoryCustomerRepository implements CustomersRepository {
 
     return customer
   }
+
+  async findByCpf(cpf: string): Promise<Customers | null> {
+    const customer = await this.items.find(item => item.cpf === cpf)
+
+    if (!customer) {
+      return null
+    }
+
+    return customer
+  }
 }

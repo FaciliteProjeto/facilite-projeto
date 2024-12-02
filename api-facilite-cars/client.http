@@ -178,5 +178,11 @@ Get {{baseUrl}}/orders/4a1cb598-c7d5-4225-a6b0-f70cefced0e6/customer
 Content-Type: application/json
 Authorization:  Bearer {{authToken}}
 
+###
+
+# @name find_customer_by_cpf
+Get {{baseUrl}}/customer?cpf=32435565433
+Content-Type: application/json
+Authorization:  Bearer {{authToken}}
 
 

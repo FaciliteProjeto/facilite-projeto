@@ -30,6 +30,10 @@ const items = [
     title: "Clientes",
     url: "/seller",
   },
+  {
+    title: "Vendas",
+    url: "/sales",
+  },
 ];
 
 const handleSignOut = async () => {

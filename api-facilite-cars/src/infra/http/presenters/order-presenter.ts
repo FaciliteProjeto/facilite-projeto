@@ -1,4 +1,5 @@
 import type { Order } from '@/domain/enterprise/entities/order'
+import { CustomerPresenter } from './customer-presenter'
 
 export class OrderPresenter {
   static toHTTP(order: Order) {
@@ -11,6 +12,7 @@ export class OrderPresenter {
       createdAt: order.createdAt,
       updatedAt: order.updatedAt,
       orderType: order.orderType,
+      customer: order.customer && CustomerPresenter.toHTTP(order.customer),
     }
   }
 }

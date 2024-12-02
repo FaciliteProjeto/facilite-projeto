@@ -76,4 +76,18 @@ export class PrismaCustomerRepository implements CustomersRepository {
       },
     })
   }
+
+  async findByCpf(cpf: string): Promise<Customers | null> {
+    const response = await this.prisma.customer.findFirst({
+      where: {
+        cpf,
+      },
+    })
+
+    if (!response) {
+      return null
+    }
+
+    return PrismaCustomerMapper.toDomain(response)
+  }
 }
