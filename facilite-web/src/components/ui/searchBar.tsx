@@ -4,9 +4,15 @@ import { Input } from "./input";
 interface SearchBarProps {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
+  placeholder?: string;
 }
 
-export function SearchBar({ searchTerm, setSearchTerm }: SearchBarProps) {
+export function SearchBar({
+  searchTerm,
+  setSearchTerm,
+  placeholder,
+  ...rest
+}: SearchBarProps) {
   return (
     <div>
       <div className="flex gap-2 items-center border-2 justify-center bg-white rounded-md">
@@ -14,6 +20,8 @@ export function SearchBar({ searchTerm, setSearchTerm }: SearchBarProps) {
         <Input
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder={placeholder}
+          {...rest}
           className="border-none ring-0 focus:ring-0 outline-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 flex-1"
         />
       </div>
