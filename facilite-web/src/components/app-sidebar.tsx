@@ -1,5 +1,6 @@
 "use client";
 
+import type { FetchUserResponse } from "@/auth/auth";
 import {
   Sidebar,
   SidebarContent,
@@ -12,6 +13,8 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { api } from "@/http/api-client";
+import { useQuery } from "@tanstack/react-query";
 import { Loader2, LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,39 +30,54 @@ const items = [
   {
     title: "Pagamentos",
     url: "/customer",
+    roles: ["CUSTOMER"],
   },
   {
     title: "Clientes",
     url: "/seller",
+    roles: ["SELLER", "ADMIN"],
   },
   {
     title: "Vendas",
     url: "/sales",
+    roles: ["ADMIN"], 
   },
 ];
 
 async function signOut() {
   const { deleteCookie } = await import("cookies-next");
-    
   deleteCookie("token");
-
   window.location.href = "/auth/sign-in";
 }
 
 export function AppSidebar() {
   const pathname = usePathname();
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSignOut = async () => {
-    setIsLoading(true); // Ativa o loading
+    setIsLoading(true);
     try {
       await signOut();
     } catch (error) {
       console.error("Erro ao sair:", error);
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
+
+  const { data: user } = useQuery({
+    queryKey: ["user-role"],
+    queryFn: () => auth(),
+  });
+
+  async function auth() {
+    try {
+      const user = await api.get("me").json<FetchUserResponse>();
+      return user.user;
+    } catch (err) {
+      console.error("Error fetching user:", err);
+    }
+  }
 
   return (
     <Sidebar>
@@ -84,23 +102,29 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-3">
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link
-                      href={item.url}
-                      className={`flex items-center justify-center text-sm font-medium w-full h-full p-2 
+              {items
+                .filter(
+                  (item) =>
+                    !item.roles || // Se não tiver roles, é público
+                    (user && item.roles.includes(user.role)) // Exibe se o role do usuário estiver listado
+                )
+                .map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link
+                        href={item.url}
+                        className={`flex items-center justify-center text-sm font-medium w-full h-full p-2 
                         ${
                           pathname === item.url
                             ? "bg-[#F9D270] text-black"
                             : "text-white hover:bg-[#F9D270] hover:text-black focus:bg-[#F9D270] focus:text-black"
                         }`}
-                    >
-                      {item.title}
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+                      >
+                        {item.title}
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -109,7 +133,7 @@ export function AppSidebar() {
           <Button
             className="flex items-center gap-2"
             onClick={handleSignOut}
-            disabled={isLoading} 
+            disabled={isLoading}
           >
             {isLoading ? (
               <Loader2 className="animate-spin text-orange-600" />

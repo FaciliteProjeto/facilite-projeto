@@ -1,10 +1,12 @@
 "use client";
 
+import type { FetchUserResponse } from "@/auth/auth";
 import { CardCar } from "@/components/card-car";
 import { Button } from "@/components/ui/button";
 import { type CarsProps, PaymentModal } from "@/components/ui/modalPaymentType";
 import { SearchBar } from "@/components/ui/searchBar";
 import MessageEffect from "@/components/ui/titleAnimated";
+import { api } from "@/http/api-client";
 import { fetchCar } from "@/http/fetch-cars";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -65,7 +67,19 @@ export default function Home() {
     undefined
   );
 
+  const { data: user } = useQuery({
+    queryKey: ["user-role"],
+    queryFn: () => auth(),
+  });
 
+  async function auth() {
+    try {
+      const user = await api.get("me").json<FetchUserResponse>();
+      return user.user;
+    } catch (err) {
+      console.error("Error fetching user:", err);
+    }
+  }
 
   const handleOpenModal = (car: CarsProps) => {
     setSelectedCar(car);
@@ -120,7 +134,7 @@ export default function Home() {
             <CardCar
               key={item.id}
               item={item}
-              onClick={() => handleOpenModal(item)}
+              onClick={() => user?.role === 'SELLER' || user?.role === 'ADMIN' && handleOpenModal(item)}
             />
           );
         })}
