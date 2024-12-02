@@ -58,7 +58,6 @@ export class Installment extends Entity<InstallmentProps> {
     const installment = new Installment(
       {
         ...props,
-        isPaid: false,
         createdAt: new Date(),
       },
       id

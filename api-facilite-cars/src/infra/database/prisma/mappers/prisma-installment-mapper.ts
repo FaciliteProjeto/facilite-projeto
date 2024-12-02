@@ -1,6 +1,6 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Installment } from '@/domain/enterprise/entities/Installment';
-import type { Prisma, Installment as PrismaInstallment } from '@prisma/client';
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Installment } from '@/domain/enterprise/entities/Installment'
+import type { Prisma, Installment as PrismaInstallment } from '@prisma/client'
 
 export class PrismaInstallmentMapper {
   static toDomain(raw: PrismaInstallment): Installment {
@@ -13,12 +13,12 @@ export class PrismaInstallmentMapper {
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
       },
-      new UniqueEntityID(raw.id),
-    );
+      new UniqueEntityID(raw.id)
+    )
   }
 
   static toPrisma(
-    installment: Installment,
+    installment: Installment
   ): Prisma.InstallmentUncheckedCreateInput {
     return {
       id: installment.id.toString(),
@@ -28,6 +28,6 @@ export class PrismaInstallmentMapper {
       isPaid: installment.isPaid,
       createdAt: installment.createdAt,
       updatedAt: installment.updatedAt,
-    };
+    }
   }
 }

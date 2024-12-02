@@ -68,7 +68,7 @@ export default function CustomerPayment() {
             : installment
         )
       );
-      toast.success("Pagamento realizado com sucesso!");
+      toast.success("Pagamento realizado com sucesso!", { className: 'bg-green-800 text-green-300'});
     } catch (error) {
       console.error("Erro ao realizar pagamento:", error);
       toast.error("Erro ao realizar pagamento. Tente novamente.");
@@ -197,12 +197,12 @@ export default function CustomerPayment() {
                   <Button
                     variant="outline"
                     className={`px-6 py-1 border-2 ${
-                      installment.isPaid
+                      installment.isPaid === true
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-green-500 text-white hover:bg-white hover:text-green-500 transition"
                     }`}
                     onClick={() =>
-                      !installment.isPaid && handlePayment(installment.id)
+                      installment.isPaid === false && handlePayment(installment.id)
                     }
                     disabled={installment.isPaid || loadingPayment === installment.id}
                   >
