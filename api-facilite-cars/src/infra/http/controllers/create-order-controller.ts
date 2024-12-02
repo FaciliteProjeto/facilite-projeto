@@ -19,6 +19,7 @@ const createOrderBodySchema = z.object({
   price: z.number().positive(),
   orderType: z.enum(['PURCHASE', 'SALE']),
   installmentsCount: z.number().int().positive(),
+  paymentMethod: z.string().optional().nullable(),
 })
 
 type CreateOrderBodySchema = z.infer<typeof createOrderBodySchema>
@@ -32,8 +33,15 @@ export class CreateOrderController {
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(createOrderBodySchema))
   async handler(@Body() body: CreateOrderBodySchema) {
-    const { customerId, userId, carId, price, orderType, installmentsCount } =
-      body
+    const {
+      customerId,
+      userId,
+      carId,
+      price,
+      orderType,
+      installmentsCount,
+      paymentMethod,
+    } = body
 
     const response = await this.createOrder.execute({
       customerId,
@@ -42,6 +50,7 @@ export class CreateOrderController {
       price,
       orderType,
       installmentsCount,
+      paymentMethod,
     })
 
     if (response.isLeft()) {

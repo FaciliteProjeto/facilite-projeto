@@ -33,7 +33,7 @@ export default function SalerPage() {
               <TableCell className="px-4 py-2 border border-gray-300">{index + 1}</TableCell>
               <TableCell className="px-4 py-2 border border-gray-300">{sale.customer.name}</TableCell>
               <TableCell className="px-4 py-2 border border-gray-300">{sale.id.substring(1, 8)}</TableCell>
-              <TableCell className="px-4 py-2 border border-gray-300">{sale.price}</TableCell>
+              <TableCell className="px-4 py-2 border border-gray-300">{sale.paymentMethod}</TableCell>
               <TableCell className="px-4 py-2 border border-gray-300">{dayjs(sale.createdAt).format('DD-MM-YYYY')}</TableCell>
             </TableRow>
           ))}

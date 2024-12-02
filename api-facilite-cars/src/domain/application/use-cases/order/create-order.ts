@@ -13,6 +13,7 @@ interface CreateOrderUseCaseRequest {
   carId: string
   orderType: 'PURCHASE' | 'SALE'
   installmentsCount: number
+  paymentMethod?: string | null
 }
 
 type CreateOrderUseCaseResponse = Either<null, null>
@@ -30,6 +31,7 @@ export class CreateOrderUseCase {
     carId,
     price,
     orderType,
+    paymentMethod,
     installmentsCount,
   }: CreateOrderUseCaseRequest): Promise<CreateOrderUseCaseResponse> {
     const order = Order.create({
@@ -38,6 +40,7 @@ export class CreateOrderUseCase {
       carId: new UniqueEntityID(carId),
       price,
       orderType,
+      paymentMethod,
     })
 
     await this.orderRepository.create(order)

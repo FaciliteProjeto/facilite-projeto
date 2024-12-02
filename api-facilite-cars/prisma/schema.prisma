@@ -45,7 +45,8 @@ model Order {
   userId     String @map("user_id")
   carId      String
 
-  orderType OrderType @map("order_type")
+  orderType     OrderType @map("order_type")
+  paymentMethod String?   @map("payment_method)")
 
   user        User          @relation(fields: [userId], references: [id])
   customer    Customer      @relation(fields: [customerId], references: [id])

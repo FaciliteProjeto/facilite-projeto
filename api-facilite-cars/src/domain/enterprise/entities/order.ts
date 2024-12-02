@@ -12,6 +12,7 @@ interface OrderProps {
   price: number
   createdAt: Date
   updatedAt?: Date
+  paymentMethod?: string | null
   orderType: OrderType
 
   customer?: Customers
@@ -36,6 +37,10 @@ export class Order extends Entity<OrderProps> {
 
   get orderType() {
     return this.props.orderType
+  }
+
+  get paymentMethod() {
+    return this.props.paymentMethod
   }
 
   get createdAt() {

@@ -1,6 +1,4 @@
-import Image from "next/image";
 import { Card, CardContent } from "./ui/card";
-import React from "react";
 
 interface CarsProps {
   item: {
@@ -15,7 +13,7 @@ interface CarsProps {
     value: number;
     posterUrl: string;
   };
-  onClick?: (id: string) => void; // Função onClick opcional
+  onClick?: (id: string) => void; 
 }
 
 export function CardCar({ item, onClick }: CarsProps) {
@@ -32,9 +30,9 @@ export function CardCar({ item, onClick }: CarsProps) {
     >
       <CardContent className="flex flex-col items-center justify-between flex-1 p-4">
         <div className="flex items-center justify-center mb-4 w-full h-[260px]">
+          {/* biome-ignore lint/a11y/useAltText: <explanation> */}
           <img
             src={item.posterUrl}
-            alt="Car Image"
             width="340"
             height="160"
             className="object-cover w-full h-96"

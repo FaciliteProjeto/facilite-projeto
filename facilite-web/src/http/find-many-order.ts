@@ -7,6 +7,7 @@ interface FindManyOrderResponse {
     customerId: string
     carId: string
     price: number
+    paymentMethod: string
     createdAt: Date
     customer: {
       id: string
