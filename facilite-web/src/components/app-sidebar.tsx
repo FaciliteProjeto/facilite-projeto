@@ -14,6 +14,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut } from "@/auth/auth";
+import { Button } from "./ui/button";
 
 const items = [
   {
@@ -29,6 +31,10 @@ const items = [
     url: "/seller",
   },
 ];
+
+const handleSignOut = async () => {
+  await signOut();
+};
 
 export function AppSidebar() {
   const pathname = usePathname();
