@@ -1,7 +1,7 @@
 import { api } from './api-client'
 
 interface FetchInstallmentResponse {
-  installment: {
+  installments: {
     id: string
     orderId: string
     dueDate: Date
@@ -17,5 +17,5 @@ export async function fetchInstallment({ orderId }: { orderId: string }) {
     .get(`installments/${orderId}`)
     .json<FetchInstallmentResponse>()
 
-  return result.installment
+  return result.installments
 }

@@ -9,6 +9,7 @@ import { FindManyCustomerUseCase } from '@/domain/application/use-cases/customer
 import { FindUniqueCustomerUseCase } from '@/domain/application/use-cases/customers/find-unique-customer'
 import { UpdateCustomerUseCase } from '@/domain/application/use-cases/customers/update-customer'
 import { GetInstallmentsByOrderIdUseCase } from '@/domain/application/use-cases/installment/get-installments-by-order-id'
+import { PaymentInstallmentUseCase } from '@/domain/application/use-cases/installment/payment-installment'
 import { CreateOrderUseCase } from '@/domain/application/use-cases/order/create-order'
 import { FindManyOrderUseCase } from '@/domain/application/use-cases/order/find-many-order'
 import { FindManyOrderByCostumerIdUseCase } from '@/domain/application/use-cases/order/find-many-order-by-customer-id'
@@ -37,6 +38,7 @@ import { FindUniqueCarController } from './controllers/find-unique-car.controlle
 import { FindUniqueCustomerController } from './controllers/find-unique-customer.controller'
 import { GetInstallmentsByOrderIdController } from './controllers/get-installments-by-order-id.controller'
 import { GetUserInfoController } from './controllers/get-user-info.controller'
+import { PaymentInstallmentController } from './controllers/payment-installment.controlle'
 import { UpdateCustomerController } from './controllers/update-customer.controller'
 import { UpdateUserController } from './controllers/update-user.controller'
 
@@ -68,6 +70,7 @@ import { UpdateUserController } from './controllers/update-user.controller'
 
     FindManyOrderController,
     FindCustomerByCpfController,
+    PaymentInstallmentController,
   ],
 
   providers: [
@@ -97,6 +100,7 @@ import { UpdateUserController } from './controllers/update-user.controller'
     FindManyOrderUseCase,
 
     FindCustomerByCpfUseCase,
+    PaymentInstallmentUseCase,
   ],
 })
 export class HttpModule {}

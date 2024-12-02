@@ -1,5 +1,4 @@
 import { api } from '@/http/api-client'
-import { findManyOrderByCustomerId } from '@/http/find-many-order-by-customer-id'
 import { getInfoCustomer } from '@/http/get-info-customer'
 import { redirect } from 'next/navigation'
 
@@ -48,20 +47,6 @@ export async function getInfoCustomers() {
     return customer
   } catch (err) {
     console.error('Error fetching customer info:', err)
-  }
-}
-
-export async function getOrderByCustomerId() {
-  const customer = await getInfoCustomers()
-  if (!customer?.id) {
-    return
-  }
-
-  try {
-    const order = await findManyOrderByCustomerId({ customerId: customer.id })
-    return order
-  } catch (err) {
-    console.error('Error fetching orders:', err)
   }
 }
 

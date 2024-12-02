@@ -28,6 +28,10 @@ export class Installment extends Entity<InstallmentProps> {
     return this.props.isPaid
   }
 
+  set isPaid(value: boolean) {
+    this.props.isPaid = value
+  }
+
   get createdAt() {
     return this.props.createdAt
   }

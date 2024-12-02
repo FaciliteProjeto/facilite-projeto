@@ -3,6 +3,7 @@
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
@@ -11,10 +12,11 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { Loader2, LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut } from "@/auth/auth";
+import { useState } from "react";
 import { Button } from "./ui/button";
 
 const items = [
@@ -36,12 +38,28 @@ const items = [
   },
 ];
 
-const handleSignOut = async () => {
-  await signOut();
-};
+async function signOut() {
+  const { deleteCookie } = await import("cookies-next");
+    
+  deleteCookie("token");
+
+  window.location.href = "/auth/sign-in";
+}
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleSignOut = async () => {
+    setIsLoading(true); // Ativa o loading
+    try {
+      await signOut();
+    } catch (error) {
+      console.error("Erro ao sair:", error);
+    } finally {
+      setIsLoading(false); 
+    }
+  };
 
   return (
     <Sidebar>
@@ -86,6 +104,23 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        <SidebarFooter className="mt-auto flex">
+          <Button
+            className="flex items-center gap-2"
+            onClick={handleSignOut}
+            disabled={isLoading} 
+          >
+            {isLoading ? (
+              <Loader2 className="animate-spin text-orange-600" />
+            ) : (
+              <LogOut className="size-8 text-orange-600" />
+            )}
+            <span className="text-base text-gray-100">
+              {isLoading ? "Saindo..." : "Sair"}
+            </span>
+          </Button>
+        </SidebarFooter>
       </SidebarContent>
     </Sidebar>
   );

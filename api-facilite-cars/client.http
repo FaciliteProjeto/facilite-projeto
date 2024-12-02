@@ -160,7 +160,7 @@ Authorization: Bearer {{authToken}}
 ###
 
 # @name get_installments_by_orderId
-Get {{baseUrl}}/installments/3992f91f-d769-4214-aa3e-5dfce54d1055
+Get {{baseUrl}}/installments/3f87c569-72bd-4f91-b5b2-596ed41f9dfd
 Content-Type: application/json
 Authorization:  Bearer {{authToken}}
 
@@ -182,6 +182,14 @@ Authorization:  Bearer {{authToken}}
 
 # @name find_customer_by_cpf
 Get {{baseUrl}}/customer?cpf=32435565433
+Content-Type: application/json
+Authorization:  Bearer {{authToken}}
+
+
+###
+
+# @name payment_installment
+PUT  {{baseUrl}}/installment/7fe7a0a3-45a5-48e6-a6ef-eb366b59509a/update
 Content-Type: application/json
 Authorization:  Bearer {{authToken}}
 

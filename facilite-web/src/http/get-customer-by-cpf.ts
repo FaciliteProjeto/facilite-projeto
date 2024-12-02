@@ -20,7 +20,7 @@ interface GetCustomerByCpfResponse {
 
 export async function getCustomerByCpf(ssn: string) {
   const result = await api
-    .get(`customer?ssn=${ssn}`)
+    .get(`customer?cpf=${ssn}`)
     .json<GetCustomerByCpfResponse>()
 
   return result.customer
